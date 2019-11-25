@@ -22,7 +22,6 @@ import java.math.BigDecimal;
  */
 public class CompraPosIntegradorReq extends MensajeProtocolo {
     private static final String SEPARADOR="|";
-
     private Integer codigoSesion;
     private Integer codigoBanco;
     private String codigoEstablecimiento;
@@ -175,7 +174,7 @@ public class CompraPosIntegradorReq extends MensajeProtocolo {
                 this.setCodigoBanco(Integer.parseInt(partesCompra[6]));
             }catch(Exception ex){
                 throw new ProtocolParserException(ErrorCodesParser.CASTING_NO_REALIZADO,
-                        "El mensaje recibido no tiene el formato correcto en Codigo Banco. Codigo Banco recibido: " + partesCompra[5].toString());
+                        "El mensaje recibido no tiene el formato correcto en Codigo Banco. Codigo Banco recibido: " + partesCompra[6].toString());
             }
             if(partesCompra[7].length()!=6){
                 throw new ProtocolParserException(ErrorCodesParser.VALORES_INCORRECTOS,

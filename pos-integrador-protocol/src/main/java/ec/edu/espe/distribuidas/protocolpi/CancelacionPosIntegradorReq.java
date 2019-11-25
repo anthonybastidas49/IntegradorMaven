@@ -20,7 +20,7 @@ package ec.edu.espe.distribuidas.protocolpi;
  * @author Paspuel-Torres
  */
 public class CancelacionPosIntegradorReq extends MensajeProtocolo {
-
+    private static final String SEPARADOR="|";
     private Integer codigoSesion;
     private Integer codigoBanco;
     private String codigoEstablecimiento;
@@ -96,8 +96,50 @@ public class CancelacionPosIntegradorReq extends MensajeProtocolo {
     }
 
     @Override
-    public void parse(String text) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public void parse(String text) throws ProtocolParserException{
+        String partesCancelacion[]=text.split(SEPARADOR);
+        if(partesCancelacion.length!=11){
+            throw new ProtocolParserException(ErrorCodesParser.CAMPOS_INSUFICIENTES,
+                    "El mensaje recibido tiene menos campos de los necesarios para parsear la cabecera. Campos recibidos:" + text.length());
+        }else{
+            this.setCabecera(new CabeceraPosIntegrador(partesCancelacion[0],partesCancelacion[1],Integer.parseInt(partesCancelacion[2]),partesCancelacion[3], Integer.parseInt(partesCancelacion[4])));
+            try{
+                this.setCodigoSesion(Integer.parseInt(partesCancelacion[5]));
+            }catch(Exception ex){
+                throw new ProtocolParserException(ErrorCodesParser.CASTING_NO_REALIZADO,
+                        "El mensaje recibido no tiene el formato correcto en Codigo Sesion. Codigo Sesion recibido: " + partesCancelacion[5].toString());
+            }
+            try{
+                this.setCodigoBanco(Integer.parseInt(partesCancelacion[6]));
+            }catch(Exception ex){
+                throw new ProtocolParserException(ErrorCodesParser.CASTING_NO_REALIZADO,
+                        "El mensaje recibido no tiene el formato correcto en Codigo Banco. Codigo Banco recibido: " + partesCancelacion[6].toString());
+            }
+            if(partesCancelacion[7].length()!=6){
+                throw new ProtocolParserException(ErrorCodesParser.VALORES_INCORRECTOS,
+                        "El mensaje recibido no contiene información válida. Codigo Establecimiento recibido:" + partesCancelacion[7].toString());
+            }else{
+                this.setCodigoEstablecimiento(partesCancelacion[7]);
+            }
+            try{
+                this.setPin(Integer.parseInt(partesCancelacion[8]));
+            }catch(Exception ex){
+                throw new ProtocolParserException(ErrorCodesParser.CASTING_NO_REALIZADO,
+                        "El mensaje recibido no tiene el formato correcto en pin. Pin recibido: " + partesCancelacion[8].toString());
+            }
+            if(partesCancelacion[9].length()!=16 || partesCancelacion[9].matches("[0-9]*")){
+              throw new ProtocolParserException(ErrorCodesParser.VALORES_INCORRECTOS,
+                        "El mensaje recibido no contiene información válida. Numero Tarjeta recibido:" + partesCancelacion[9].toString());
+            }else{
+                this.setNumTarjeta(partesCancelacion[9]);
+            }
+            if(partesCancelacion[10].length()!=5){
+                throw new ProtocolParserException(ErrorCodesParser.VALORES_INCORRECTOS,
+                        "El mensaje recibido no contiene información válida. Referencia Voucher recibido:" + partesCancelacion[10].toString());
+            }else{
+                this.setReferenciaVoucher(partesCancelacion[10]);
+            }
+        }
     }
 
     @Override
