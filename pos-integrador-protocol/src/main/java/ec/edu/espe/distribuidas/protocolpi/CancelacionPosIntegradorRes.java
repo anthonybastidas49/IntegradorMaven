@@ -59,7 +59,7 @@ public class CancelacionPosIntegradorRes extends MensajeProtocolo {
 
     @Override
     public void parse(String text) throws ProtocolParserException{
-        String partesCancelacion[]=text.split(CabeceraPosIntegrador.SEPARADOR);
+        String partesCancelacion[]=text.split(Protocol.SEPARADOR);
         if(partesCancelacion.length!=7){
             throw new ProtocolParserException(ErrorCodesParser.CAMPOS_INSUFICIENTES,
                     "El mensaje recibido tiene menos campos de los necesarios para parsear la cabecera. Campos recibidos:" + text.length());
@@ -82,6 +82,10 @@ public class CancelacionPosIntegradorRes extends MensajeProtocolo {
 
     @Override
     public String format() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        StringBuilder sb = new StringBuilder();
+        sb.append(this.getMontoCancelado());
+        sb.append(Protocol.SEPARADOR);
+        sb.append(getEstado());
+        return sb.toString();
     }
 }

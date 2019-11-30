@@ -11,21 +11,29 @@
 package ec.edu.espe.distribuidas.protocolpi;
 
 /**
- * 
+ *
  * @author Torres
  * @author Paspuel
  */
 public class MessageFormat {
-    public String format(MensajeProtocolo message) throws ProtocolParserException {
-        CabeceraPosIntegrador cabecera=message.getCabecera();
-        try{
-                   return new StringBuilder(cabecera.getTipoMensaje().concat("|").concat(cabecera.getDispositivo()).concat("|")
-                .concat(cabecera.getCodigoMensaje().toString()).concat("|").concat(cabecera.getFecha()).concat("|")
-                .concat(cabecera.getLongitudCuerpo().toString()).concat("|")).append(message.format()).toString(); 
-        }catch(Exception ex){
-            throw new ProtocolParserException(ErrorCodesParser.MENSAJE_VACIO, "El mensaje es vacío o nulo.");
-        }
 
-        
+    public String format(MensajeProtocolo message) throws ProtocolParserException {
+        CabeceraPosIntegrador cabecera = message.getCabecera();
+        StringBuilder sb = new StringBuilder();
+        String body = message.format();
+        cabecera.setLongitudCuerpo(body.length());
+        sb.append(cabecera.getTipoMensaje());
+        sb.append(Protocol.SEPARADOR);
+        sb.append(cabecera.getDispositivo());
+        sb.append(Protocol.SEPARADOR);
+        sb.append(cabecera.getCodigoMensaje());
+        sb.append(Protocol.SEPARADOR);
+        sb.append(cabecera.getFecha());
+        sb.append(Protocol.SEPARADOR);
+        sb.append(cabecera.getLongitudCuerpo().toString());
+        sb.append(Protocol.SEPARADOR);
+        sb.append(body);
+        sb.append(Protocol.SEPARADOR);
+        return sb.toString();
     }
 }

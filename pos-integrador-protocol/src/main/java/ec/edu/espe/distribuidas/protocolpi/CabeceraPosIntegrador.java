@@ -21,8 +21,6 @@ package ec.edu.espe.distribuidas.protocolpi;
  */
 public class CabeceraPosIntegrador {
 
-    public static final String SEPARADOR = "|";
-    
     private String tipoMensaje;
     private String dispositivo;
     private Integer codigoMensaje;

@@ -17,6 +17,7 @@ package ec.edu.espe.distribuidas.protocolpi;
  * @author Torres
  */
 public interface Protocol {
+    public static final String SEPARADOR = "|";
     void parse(String text)throws ProtocolParserException;
     String format();
 }
