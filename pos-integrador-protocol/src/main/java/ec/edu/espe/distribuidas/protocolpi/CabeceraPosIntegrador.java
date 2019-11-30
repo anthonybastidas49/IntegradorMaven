@@ -11,6 +11,7 @@
  * 
  */
 package ec.edu.espe.distribuidas.protocolpi;
+
 /**
  * Clase CabeceraPosIntegrador. Creacion de la clase CabeceraPosIntegrador con
  * metodos set y get para la implementación del protocolo
@@ -20,6 +21,8 @@ package ec.edu.espe.distribuidas.protocolpi;
  */
 public class CabeceraPosIntegrador {
 
+    public static final String SEPARADOR = "|";
+    
     private String tipoMensaje;
     private String dispositivo;
     private Integer codigoMensaje;

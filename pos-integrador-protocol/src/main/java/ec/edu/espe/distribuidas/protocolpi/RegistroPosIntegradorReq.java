@@ -12,6 +12,9 @@
  */
 package ec.edu.espe.distribuidas.protocolpi;
 
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 /**
  * Clase RegistroPosIntegradorReq. Creacion de la clase RegistroPosIntegradorReq
  * con metodos set y get para la implementación del protocolo Registro en
@@ -21,8 +24,6 @@ package ec.edu.espe.distribuidas.protocolpi;
  * @author Torres
  */
 public class RegistroPosIntegradorReq extends MensajeProtocolo {
-    
-    private static final String SEPARADOR="|";
 
     private Integer pin;
 
@@ -49,16 +50,16 @@ public class RegistroPosIntegradorReq extends MensajeProtocolo {
     }
 
     @Override
-    public void parse(String text)throws ProtocolParserException{
-        String partesRegistro[]=text.split(SEPARADOR);
-        if(partesRegistro.length!=6){
+    public void parse(String text) throws ProtocolParserException {
+        String partesRegistro[] = text.split(CabeceraPosIntegrador.SEPARADOR);
+        if (partesRegistro.length != 6) {
             throw new ProtocolParserException(ErrorCodesParser.CAMPOS_INSUFICIENTES,
                     "El mensaje recibido tiene menos campos de los necesarios para parsear la cabecera. Campos recibidos:" + text.length());
-        }else{
-            this.setCabecera(new CabeceraPosIntegrador(partesRegistro[0],partesRegistro[1],Integer.parseInt(partesRegistro[2]),partesRegistro[3], Integer.parseInt(partesRegistro[4])));
-            try{
+        } else {
+            this.setCabecera(new CabeceraPosIntegrador(partesRegistro[0], partesRegistro[1], Integer.parseInt(partesRegistro[2]), partesRegistro[3], Integer.parseInt(partesRegistro[4])));
+            try {
                 this.setPin(Integer.parseInt(partesRegistro[5]));
-            }catch(Exception ex){
+            } catch (Exception ex) {
                 throw new ProtocolParserException(ErrorCodesParser.CASTING_NO_REALIZADO,
                         "El mensaje recibido no tiene el formato correcto en pin. Pin recibido: " + partesRegistro[5].toString());
             }
@@ -67,6 +68,6 @@ public class RegistroPosIntegradorReq extends MensajeProtocolo {
 
     @Override
     public String format() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return this.getPin().toString();
     }
 }

@@ -22,7 +22,6 @@ import java.math.BigDecimal;
  * @author Torres
  */
 public class CompraPosIntegradorRes extends MensajeProtocolo {
-    private static final String SEPARADOR="|";
     private BigDecimal valorCuota;
     private String estado;
     private String referenciaVoucher;
@@ -69,7 +68,7 @@ public class CompraPosIntegradorRes extends MensajeProtocolo {
     
     @Override
     public void parse(String text) throws ProtocolParserException{
-        String partesCompra[]=text.split(SEPARADOR);
+        String partesCompra[]=text.split(CabeceraPosIntegrador.SEPARADOR);
         if(partesCompra.length!=8){
             throw new ProtocolParserException(ErrorCodesParser.CAMPOS_INSUFICIENTES,
                     "El mensaje recibido tiene menos campos de los necesarios para parsear la cabecera. Campos recibidos:" + text.length());

@@ -22,7 +22,6 @@ package ec.edu.espe.distribuidas.protocolpi;
  */
 public class RegistroPosIntegradorRes extends MensajeProtocolo {
 
-    private static final String SEPARADOR="|";
     private Integer codigoSesion;
     private String estado;
 
@@ -59,7 +58,7 @@ public class RegistroPosIntegradorRes extends MensajeProtocolo {
 
     @Override
     public void parse(String text) throws ProtocolParserException{
-        String partesRegistro[]=text.split(SEPARADOR);
+        String partesRegistro[]=text.split(CabeceraPosIntegrador.SEPARADOR);
         if(partesRegistro.length!=7){
             throw new ProtocolParserException(ErrorCodesParser.CAMPOS_INSUFICIENTES,
                     "El mensaje recibido tiene menos campos de los necesarios para parsear la cabecera. Campos recibidos:" + text.length());
@@ -84,6 +83,6 @@ public class RegistroPosIntegradorRes extends MensajeProtocolo {
 
     @Override
     public String format() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return this.getCodigoSesion().toString().concat("|").concat(this.getEstado());
     }
 }

@@ -19,17 +19,19 @@ import java.util.logging.Logger;
  * @author Paspuel
  * @author Torres
  */
-public class MessageRequestParser {
+public class MessageParser {
 
     private static final String SEPARADOR = "|";
-    private static final Logger LOG = Logger.getLogger(MessageRequestParser.class.getName());
+    private static final Logger LOG = Logger.getLogger(MessageParser.class.getName());
 
-    public MensajeProtocolo parse(String message) throws ProtocolParserException {
+        public MensajeProtocolo parse(String message) throws ProtocolParserException {
         if (message == null || message.length() < 1) {
             throw new ProtocolParserException(ErrorCodesParser.MENSAJE_VACIO, "El mensaje es vacío o nulo.");
         }
         CabeceraPosIntegrador cabeceraMensaje = this.parseCabecera(message);
-        return MessageProtocoloPosIntegradorFactory.instanceMessage(cabeceraMensaje.getCodigoMensaje(), cabeceraMensaje);
+         MensajeProtocolo mensaje = MessageProtocoloPosIntegradorFactory.instanceMessage(cabeceraMensaje.getCodigoMensaje(), cabeceraMensaje);
+		mensaje.parse(message);
+		return mensaje;
     }
 
     private CabeceraPosIntegrador parseCabecera(String message) throws ProtocolParserException {
