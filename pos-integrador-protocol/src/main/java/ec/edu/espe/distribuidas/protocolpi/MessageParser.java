@@ -14,7 +14,7 @@ package ec.edu.espe.distribuidas.protocolpi;
 import java.util.logging.Logger;
 
 /**
- * Clase MessageRequestParser, utilizada para obtener la cabecera
+ * Clase MessageParser, utilizada para obtener la cabecera y cuerpo del mensaje
  *
  * @author Paspuel
  * @author Torres
@@ -24,17 +24,17 @@ public class MessageParser {
     private static final String SEPARADOR = "|";
     private static final Logger LOG = Logger.getLogger(MessageParser.class.getName());
 
-        public MensajeProtocolo parse(String message) throws ProtocolParserException {
+        public static MensajeProtocolo parse(String message) throws ProtocolParserException {
         if (message == null || message.length() < 1) {
             throw new ProtocolParserException(ErrorCodesParser.MENSAJE_VACIO, "El mensaje es vacío o nulo.");
         }
-        CabeceraPosIntegrador cabeceraMensaje = this.parseCabecera(message);
+        CabeceraPosIntegrador cabeceraMensaje = MessageParser.parseCabecera(message);
          MensajeProtocolo mensaje = MessageProtocoloPosIntegradorFactory.instanceMessage(cabeceraMensaje.getCodigoMensaje(), cabeceraMensaje);
 		mensaje.parse(message);
 		return mensaje;
     }
 
-    private CabeceraPosIntegrador parseCabecera(String message) throws ProtocolParserException {
+    private static CabeceraPosIntegrador parseCabecera(String message) throws ProtocolParserException {
         String partes[] = message.split(SEPARADOR);
         CabeceraPosIntegrador cabecera = new CabeceraPosIntegrador();
         if (partes.length <= 5) {

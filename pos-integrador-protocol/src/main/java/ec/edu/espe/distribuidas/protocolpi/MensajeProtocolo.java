@@ -33,5 +33,5 @@ public abstract class MensajeProtocolo implements Protocol {
     public void setCabecera(CabeceraPosIntegrador cabecera) {
         this.cabecera = cabecera;
     }
-  
+
 }

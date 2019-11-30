@@ -11,13 +11,14 @@
 package ec.edu.espe.distribuidas.protocolpi;
 
 /**
- *
+ *  Clase MessageFormat, empleada para realizar el marshal del mensaje.
+ * 
  * @author Torres
  * @author Paspuel
  */
 public class MessageFormat {
 
-    public String format(MensajeProtocolo message) throws ProtocolParserException {
+    public static String format(MensajeProtocolo message) throws ProtocolParserException {
         CabeceraPosIntegrador cabecera = message.getCabecera();
         StringBuilder sb = new StringBuilder();
         String body = message.format();

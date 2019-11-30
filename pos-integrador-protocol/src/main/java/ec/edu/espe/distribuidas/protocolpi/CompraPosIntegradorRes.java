@@ -22,6 +22,7 @@ import java.math.BigDecimal;
  * @author Torres
  */
 public class CompraPosIntegradorRes extends MensajeProtocolo {
+
     private BigDecimal valorCuota;
     private String estado;
     private String referenciaVoucher;
@@ -39,7 +40,7 @@ public class CompraPosIntegradorRes extends MensajeProtocolo {
         super.cabecera = cabecera;
         this.valorCuota = valorCuota;
         this.estado = estado;
-        this.referenciaVoucher=referenciaVoucher;
+        this.referenciaVoucher = referenciaVoucher;
     }
 
     public BigDecimal getValorCuota() {
@@ -65,32 +66,32 @@ public class CompraPosIntegradorRes extends MensajeProtocolo {
     public void setReferenciaVoucher(String referenciaVoucher) {
         this.referenciaVoucher = referenciaVoucher;
     }
-    
+
     @Override
-    public void parse(String text) throws ProtocolParserException{
-        String partesCompra[]=text.split(Protocol.SEPARADOR);
-        if(partesCompra.length!=8){
+    public void parse(String text) throws ProtocolParserException {
+        String partesCompra[] = text.split(Protocol.SEPARADOR);
+        if (partesCompra.length != 8) {
             throw new ProtocolParserException(ErrorCodesParser.CAMPOS_INSUFICIENTES,
                     "El mensaje recibido tiene menos campos de los necesarios para parsear la cabecera. Campos recibidos:" + text.length());
-        }else{
-            this.setCabecera(new CabeceraPosIntegrador(partesCompra[0],partesCompra[1],Integer.parseInt(partesCompra[2]),partesCompra[3], Integer.parseInt(partesCompra[4])));
-            try{
+        } else {
+            this.setCabecera(new CabeceraPosIntegrador(partesCompra[0], partesCompra[1], Integer.parseInt(partesCompra[2]), partesCompra[3], Integer.parseInt(partesCompra[4])));
+            try {
                 this.setValorCuota(new BigDecimal(partesCompra[5]));
-            }catch(Exception ex){
+            } catch (Exception ex) {
                 throw new ProtocolParserException(ErrorCodesParser.CASTING_NO_REALIZADO,
                         "El mensaje recibido no tiene el formato correcto en Valor Cuota. Valor Cuota recibido: " + partesCompra[5].toString());
             }
-            if(!partesCompra[6].equals("TOK") || !partesCompra[6].equals("SNF") || !partesCompra[6].equals("EXP")
-                    || !partesCompra[6].equals("REP")|| !partesCompra[6].equals("ECV")){
+            if (!partesCompra[6].equals("TOK") || !partesCompra[6].equals("SNF") || !partesCompra[6].equals("EXP")
+                    || !partesCompra[6].equals("REP") || !partesCompra[6].equals("ECV")) {
                 throw new ProtocolParserException(ErrorCodesParser.VALORES_INCORRECTOS,
                         "El mensaje recibido no contiene información válida. Estado recibido:" + partesCompra[6].toString());
-            }else{
+            } else {
                 this.setEstado(partesCompra[6]);
             }
-            if(partesCompra[7].length()!=5){
+            if (partesCompra[7].length() != 5) {
                 throw new ProtocolParserException(ErrorCodesParser.VALORES_INCORRECTOS,
                         "El mensaje recibido no contiene información válida. Referencia Voucher recibido:" + partesCompra[7].toString());
-            }else{
+            } else {
                 this.setReferenciaVoucher(partesCompra[7]);
             }
         }

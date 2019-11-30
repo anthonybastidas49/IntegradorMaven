@@ -17,7 +17,8 @@ package ec.edu.espe.distribuidas.protocolpi;
  * @author Paspuel
  * @author Torres
  */
-public class ProtocolParserException extends Exception{
+public class ProtocolParserException extends Exception {
+
     private Integer codigo;
 
     public ProtocolParserException(Integer codigo) {
@@ -32,5 +33,5 @@ public class ProtocolParserException extends Exception{
     public ProtocolParserException(Integer codigo, String message, Throwable cause) {
         super(message, cause);
         this.codigo = codigo;
-    } 
+    }
 }

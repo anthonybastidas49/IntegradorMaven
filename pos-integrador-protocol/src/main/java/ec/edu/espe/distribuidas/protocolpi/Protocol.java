@@ -12,12 +12,15 @@ package ec.edu.espe.distribuidas.protocolpi;
 
 /**
  * Interface Protocol que contiene metodos para tratamiento del protocolo
- * 
+ *
  * @author Paspuel
  * @author Torres
  */
 public interface Protocol {
+
     public static final String SEPARADOR = "|";
-    void parse(String text)throws ProtocolParserException;
+
+    void parse(String text) throws ProtocolParserException;
+
     String format();
 }
