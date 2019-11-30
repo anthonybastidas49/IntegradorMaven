@@ -1,6 +1,6 @@
 /*
  * ESPE - DCC - APLICACIONES DISTRIBUIDAS
- * Sistema: Integrador
+ * Sistema: Protocolo
  * Creado: 09-nov-2019 - 17:19:10
  * Modificado: 09-nov-2019 - 17:19:10 
  *
@@ -13,11 +13,12 @@
 package ec.edu.espe.distribuidas.protocolpi;
 
 /**
- * Clase CancelacionPosIntegradorReq. Creacion de la clase
+ * Clase CancelacionPosIntegradorReq Creacion de la clase
  * CancelacionPosIntegradorReq con metodos set y get para la implementación del
  * protocolo Concelacion en request
  *
- * @author Paspuel-Torres
+ * @author Paspuel
+ * @author Torres
  */
 public class CancelacionPosIntegradorReq extends MensajeProtocolo {
     private static final String SEPARADOR="|";

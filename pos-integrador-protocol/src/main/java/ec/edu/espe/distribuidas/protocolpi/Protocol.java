@@ -1,6 +1,6 @@
 /*
  * ESPE - DCC - APLICACIONES DISTRIBUIDAS
- * Sistema: Integrador
+ * Sistema: Protocolo
  * Creado: 24/11/2019 - 1:13:44
  * 
  * Los contenidos de este archivo son propiedad privada y estan protegidos por 
@@ -12,7 +12,9 @@ package ec.edu.espe.distribuidas.protocolpi;
 
 /**
  * Interface Protocol que contiene metodos para tratamiento del protocolo
- * @author Paspuel-Torres
+ * 
+ * @author Paspuel
+ * @author Torres
  */
 public interface Protocol {
     void parse(String text)throws ProtocolParserException;

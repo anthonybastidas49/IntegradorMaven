@@ -1,6 +1,6 @@
 /*
  * ESPE - DCC - APLICACIONES DISTRIBUIDAS
- * Sistema: Integrador
+ * Sistema: Protocolo
  * Creado: 09-nov-2019 - 17:19:10
  * Modificado: 09-nov-2019 - 17:19:10 
  *
@@ -16,7 +16,8 @@ package ec.edu.espe.distribuidas.protocolpi;
  * Clase MensajeProtocolo. Sirve para tratar la cabecera del mensaje del
  * protocolo
  *
- * @author Paspuel-Torres
+ * @author Paspuel
+ * @author Torres
  */
 public abstract class MensajeProtocolo implements Protocol {
 

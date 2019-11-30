@@ -1,6 +1,6 @@
 /*
  * ESPE - DCC - APLICACIONES DISTRIBUIDAS
- * Sistema: Integrador
+ * Sistema: Protocolo
  * 
  * Creado: 21/11/2019 - 11:16:41
  * 
@@ -16,7 +16,8 @@ import java.util.logging.Logger;
 /**
  * Clase MessageRequestParser, utilizada para obtener la cabecera
  *
- * @author Paspuel-Torres
+ * @author Paspuel
+ * @author Torres
  */
 public class MessageRequestParser {
 

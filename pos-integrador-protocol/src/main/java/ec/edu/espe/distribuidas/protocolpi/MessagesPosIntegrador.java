@@ -1,6 +1,6 @@
 /*
  * ESPE - DCC - APLICACIONES DISTRIBUIDAS
- * Sistema: Integrador
+ * Sistema: Protocolo
  * Creado: 10/11/2019 - 0:36:38
  * 
  * Los contenidos de este archivo son propiedad privada y estan protegidos por 
@@ -13,7 +13,8 @@ package ec.edu.espe.distribuidas.protocolpi;
 /**
  * Clase MessagesPosIntegrador declara el código identificador de peticiones y respuestas.
  *
- * @author Paspuel-Torres
+ * @author Paspuel
+ * @author Torres
  */
 public class MessagesPosIntegrador {
 

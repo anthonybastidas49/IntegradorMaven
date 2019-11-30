@@ -1,6 +1,6 @@
 /*
  * ESPE - DCC - APLICACIONES DISTRIBUIDAS
- * Sistema: Integrador
+ * Sistema: Protocolo
  * Creado: 10/11/2019 - 0:28:29
  * 
  * Los contenidos de este archivo son propiedad privada y estan protegidos por 
@@ -14,7 +14,8 @@ package ec.edu.espe.distribuidas.protocolpi;
  * Clase ProtocolParserException. Creacion de la clase PosIntegradorException
  * con constructores
  *
- * @author Paspuel-Torres
+ * @author Paspuel
+ * @author Torres
  */
 public class ProtocolParserException extends Exception{
     private Integer codigo;

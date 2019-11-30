@@ -1,6 +1,6 @@
 /*
  * ESPE - DCC - APLICACIONES DISTRIBUIDAS
- * Sistema: Integrador
+ * Sistema: Protocolo
  * Creado: 09-nov-2019 - 17:19:10
  * Modificado: 09-nov-2019 - 17:19:10 
  *
@@ -18,7 +18,8 @@ import java.math.BigDecimal;
  * Clase CompraPosIntegradorReq. Creacion de la clase CompraPosIntegradorReq con
  * metodos set y get para la implementación del protocolo Compra en Request
  *
- * @author Paspuel-Torres
+ * @author Paspuel
+ * @author Torres
  */
 public class CompraPosIntegradorReq extends MensajeProtocolo {
     private static final String SEPARADOR="|";

@@ -1,6 +1,6 @@
 /*
  * ESPE - DCC - APLICACIONES DISTRIBUIDAS
- * Sistema: Integrador
+ * Sistema: Protocolo
  * Creado: 10/11/2019 - 0:57:43
  * 
  * Los contenidos de este archivo son propiedad privada y estan protegidos por 
@@ -13,7 +13,8 @@ package ec.edu.espe.distribuidas.protocolpi;
  * Clase MessageProtocolPosIntegradorFactory, utilizada para obtener los protocolos 
  * segun el código.
  *
- * @author Paspuel-Torres
+ * @author Paspuel
+ * @author Torres
  */
 public class MessageProtocoloPosIntegradorFactory {
     

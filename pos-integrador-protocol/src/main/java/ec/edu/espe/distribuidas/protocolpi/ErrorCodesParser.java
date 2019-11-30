@@ -1,6 +1,6 @@
 /*
  * ESPE - DCC - APLICACIONES DISTRIBUIDAS
- * Sistema: Corebanking
+ * Sistema: Protocolo
  * Creado: 21/11/2019 - 17:59:20
  * 
  * Los contenidos de este archivo son propiedad privada y estan protegidos por 
@@ -14,7 +14,8 @@ package ec.edu.espe.distribuidas.protocolpi;
  * Clase ErrorCodesParser. Creacion de la clase PosIntegradorException
  * con numeros de error.
  *
- * @author Paspuel-Torres
+ * @author Paspuel
+ * @author Torres
  */
 public class ErrorCodesParser {
     public static final Integer CAMPOS_INSUFICIENTES = 1;

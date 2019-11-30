@@ -1,6 +1,6 @@
 /*
  * ESPE - DCC - APLICACIONES DISTRIBUIDAS
- * Sistema: Integrador
+ * Sistema: Protocolo
  * Creado: 09-nov-2019 - 17:19:10
  * Modificado: 09-nov-2019 - 17:19:10 
  *
@@ -15,7 +15,8 @@ package ec.edu.espe.distribuidas.protocolpi;
  * Clase CabeceraPosIntegrador. Creacion de la clase CabeceraPosIntegrador con
  * metodos set y get para la implementación del protocolo
  *
- * @author Paspuel-Torres
+ * @author Paspuel
+ * @author Torres
  */
 public class CabeceraPosIntegrador {
 

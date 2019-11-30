@@ -1,6 +1,6 @@
 /*
  * ESPE - DCC - APLICACIONES DISTRIBUIDAS
- * Sistema: Integrador
+ * Sistema: Protocolo
  * Creado: 09-nov-2019 - 17:19:10
  * Modificado: 09-nov-2019 - 17:19:10 
  *
@@ -17,7 +17,8 @@ package ec.edu.espe.distribuidas.protocolpi;
  * con metodos set y get para la implementación del protocolo Registro en
  * Response
  *
- * @author Paspuel-Torres
+ * @author Paspuel
+ * @author Torres
  */
 public class RegistroPosIntegradorReq extends MensajeProtocolo {
     
