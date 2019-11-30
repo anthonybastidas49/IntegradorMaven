@@ -10,7 +10,7 @@
  */
 package ec.edu.espe.integrador.dao;
 
-import ec.edu.espe.integrador.bdd.ConnectionManager;
+import ec.edu.espe.distribuidas.dbutils.bdd.ConnectionManager;
 import ec.edu.espe.integrador.modelo.Transaccion;
 import java.sql.Connection;
 import java.sql.Date;

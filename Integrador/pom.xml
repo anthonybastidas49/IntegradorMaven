@@ -7,9 +7,9 @@
     <packaging>jar</packaging>
     <dependencies>
         <dependency>
-            <groupId>ec.edu.espe.distribuidas</groupId>
-            <artifactId>integrador</artifactId>
-            <version>1.0</version>
+            <groupId>com.dbutils</groupId>
+            <artifactId>dbutils</artifactId>
+            <version>1</version>
         </dependency>
     </dependencies>
     <properties>
