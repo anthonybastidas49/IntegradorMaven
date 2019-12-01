@@ -11,8 +11,8 @@
 package ec.edu.espe.distribuidas.protocolpi;
 
 /**
- *  Clase MessageFormat, empleada para realizar el marshal del mensaje.
- * 
+ * Clase MessageFormat, empleada para realizar el marshal del mensaje.
+ *
  * @author Torres
  * @author Paspuel
  */
