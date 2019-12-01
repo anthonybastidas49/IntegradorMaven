@@ -9,7 +9,7 @@
  * 
  * Se puede utilizar, reproducir o copiar el contenido de este archivo.
  */
-package ec.edu.espe.distribuidas.protocolpi;
+package ec.edu.espe.distribuidas.protocolpi.pos;
 
 import java.util.logging.Logger;
 

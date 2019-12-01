@@ -10,30 +10,28 @@
  * Se puede utilizar, reproducir o copiar el contenido de este archivo.
  * 
  */
-package ec.edu.espe.distribuidas.protocolpi;
+package ec.edu.espe.distribuidas.protocolpi.banco;
 
 /**
- * Clase CabeceraPosIntegrador. Creacion de la clase CabeceraPosIntegrador con
- * metodos set y get para la implementación del protocolo
+ * Clase CabeceraIntegradorBanco. Creacion de la clase CabeceraIntegradorBanco
+ * con metodos set y get para la implementación del protocolo
  *
  * @author Paspuel
  * @author Torres
  */
-public class CabeceraPosIntegrador {
+public class CabeceraIntegradorBanco {
 
     private String tipoMensaje;
-    private String dispositivo;
     private Integer codigoMensaje;
     private String fecha;
     private Integer longitudCuerpo;
 
-    public CabeceraPosIntegrador() {
+    public CabeceraIntegradorBanco() {
     }
 
-    public CabeceraPosIntegrador(String tipoMensaje, String dispositivo, Integer cod_mensaje, String fecha, Integer longitudCuerpo) {
+    public CabeceraIntegradorBanco(String tipoMensaje, Integer codigoMensaje, String fecha, Integer longitudCuerpo) {
         this.tipoMensaje = tipoMensaje;
-        this.dispositivo = dispositivo;
-        this.codigoMensaje = cod_mensaje;
+        this.codigoMensaje = codigoMensaje;
         this.fecha = fecha;
         this.longitudCuerpo = longitudCuerpo;
     }
@@ -44,14 +42,6 @@ public class CabeceraPosIntegrador {
 
     public void setTipoMensaje(String tipoMensaje) {
         this.tipoMensaje = tipoMensaje;
-    }
-
-    public String getDispositivo() {
-        return dispositivo;
-    }
-
-    public void setDispositivo(String dispositivo) {
-        this.dispositivo = dispositivo;
     }
 
     public Integer getCodigoMensaje() {

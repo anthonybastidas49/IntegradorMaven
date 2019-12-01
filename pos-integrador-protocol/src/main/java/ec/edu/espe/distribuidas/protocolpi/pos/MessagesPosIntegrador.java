@@ -8,7 +8,7 @@
  * 
  * Se puede utilizar, reproducir o copiar el contenido de este archivo.
  */
-package ec.edu.espe.distribuidas.protocolpi;
+package ec.edu.espe.distribuidas.protocolpi.pos;
 
 /**
  * Clase MessagesPosIntegrador declara el código identificador de peticiones y respuestas.

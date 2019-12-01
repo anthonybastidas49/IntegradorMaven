@@ -10,7 +10,9 @@
  * Se puede utilizar, reproducir o copiar el contenido de este archivo.
  * 
  */
-package ec.edu.espe.distribuidas.protocolpi;
+package ec.edu.espe.distribuidas.protocolpi.banco;
+
+import ec.edu.espe.distribuidas.protocolpi.pos.*;
 
 /**
  * Clase MensajeProtocolo. Sirve para tratar la cabecera del mensaje del

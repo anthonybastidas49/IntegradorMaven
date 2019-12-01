@@ -8,10 +8,11 @@
  * 
  * Se puede utilizar, reproducir o copiar el contenido de este archivo.
  */
-package ec.edu.espe.distribuidas.protocolpi;
+package ec.edu.espe.distribuidas.protocolpi.banco;
+
 
 /**
- * Clase ProtocolParserException. Creacion de la clase PosIntegradorException
+ * Clase ProtocolParserException. Creacion de la clase ProtocolParserException
  * con constructores
  *
  * @author Paspuel
