@@ -11,13 +11,16 @@
  */
 package ec.edu.espe.distribuidas.protocolpi.banco;
 
-import ec.edu.espe.distribuidas.protocolpi.pos.CabeceraPosIntegrador;
 import ec.edu.espe.distribuidas.protocolpi.pos.ProtocolParserException;
 import java.math.BigDecimal;
 
 /**
+ * Clase CancelacionIntegradorBancoRes. Creacion de la clase
+ * CancelacionIntegradorBancoRes con metodos set y get para la implementación del
+ * protocolo Concelacion en Response
  *
- * @author mayra
+ * @author Paspuel
+ * @author Torres
  */
 public class CancelacionIntegradorBancoRes extends MensajeProtocolo{
     private BigDecimal montoCancelado;
