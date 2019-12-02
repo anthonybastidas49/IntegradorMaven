@@ -103,7 +103,7 @@ public class CancelacionPosIntegradorReq extends MensajeProtocolo {
             throw new ProtocolParserException(ErrorCodesParser.CAMPOS_INSUFICIENTES,
                     "El mensaje recibido tiene menos campos de los necesarios para parsear la cabecera. Campos recibidos:" + text.length());
         } else {
-            this.setCabecera(new CabeceraPosIntegrador(partesCancelacion[0], partesCancelacion[1], Integer.parseInt(partesCancelacion[2]), partesCancelacion[3], Integer.parseInt(partesCancelacion[4])));
+            //this.setCabecera(new CabeceraPosIntegrador(partesCancelacion[0], partesCancelacion[1], Integer.parseInt(partesCancelacion[2]), partesCancelacion[3], Integer.parseInt(partesCancelacion[4])));
             try {
                 this.setCodigoSesion(Integer.parseInt(partesCancelacion[5]));
             } catch (Exception ex) {

@@ -9,9 +9,6 @@
  * Se puede utilizar, reproducir o copiar el contenido de este archivo.
  */
 package ec.edu.espe.distribuidas.protocolpi.banco;
-
-import ec.edu.espe.distribuidas.protocolpi.pos.*;
-
 /**
  * Interface Protocol que contiene metodos para tratamiento del protocolo
  *

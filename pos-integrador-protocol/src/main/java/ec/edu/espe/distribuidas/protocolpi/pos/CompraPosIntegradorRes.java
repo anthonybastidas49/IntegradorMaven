@@ -74,7 +74,7 @@ public class CompraPosIntegradorRes extends MensajeProtocolo {
             throw new ProtocolParserException(ErrorCodesParser.CAMPOS_INSUFICIENTES,
                     "El mensaje recibido tiene menos campos de los necesarios para parsear la cabecera. Campos recibidos:" + text.length());
         } else {
-            this.setCabecera(new CabeceraPosIntegrador(partesCompra[0], partesCompra[1], Integer.parseInt(partesCompra[2]), partesCompra[3], Integer.parseInt(partesCompra[4])));
+            //this.setCabecera(new CabeceraPosIntegrador(partesCompra[0], partesCompra[1], Integer.parseInt(partesCompra[2]), partesCompra[3], Integer.parseInt(partesCompra[4])));
             try {
                 this.setValorCuota(new BigDecimal(partesCompra[5]));
             } catch (Exception ex) {

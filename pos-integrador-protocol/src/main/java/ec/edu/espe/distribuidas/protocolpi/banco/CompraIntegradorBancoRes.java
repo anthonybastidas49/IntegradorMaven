@@ -11,7 +11,6 @@
  */
 package ec.edu.espe.distribuidas.protocolpi.banco;
 
-import ec.edu.espe.distribuidas.protocolpi.pos.ProtocolParserException;
 import java.math.BigDecimal;
 
 /**
@@ -71,26 +70,26 @@ public class CompraIntegradorBancoRes extends MensajeProtocolo {
     public void parse(String text) throws ProtocolParserException {
         String partesCompra[] = text.split(ec.edu.espe.distribuidas.protocolpi.pos.Protocol.SEPARADOR);
         if (partesCompra.length != 7) {
-            throw new ec.edu.espe.distribuidas.protocolpi.pos.ProtocolParserException(ec.edu.espe.distribuidas.protocolpi.pos.ErrorCodesParser.CAMPOS_INSUFICIENTES,
+            throw new ProtocolParserException(ErrorCodesParser.CAMPOS_INSUFICIENTES,
                     "El mensaje recibido tiene menos campos de los necesarios para parsear la cabecera. Campos recibidos:" + text.length());
         } else {
-            this.setCabecera(new CabeceraIntegradorBanco(partesCompra[0], Integer.parseInt(partesCompra[1]), partesCompra[2], Integer.parseInt(partesCompra[3])));
+            //this.setCabecera(new CabeceraIntegradorBanco(partesCompra[0], Integer.parseInt(partesCompra[1]), partesCompra[2], Integer.parseInt(partesCompra[3])));
             try {
                 this.setValorCuota(new BigDecimal(partesCompra[4]));
             } catch (Exception ex) {
-                throw new ec.edu.espe.distribuidas.protocolpi.pos.ProtocolParserException(ec.edu.espe.distribuidas.protocolpi.pos.ErrorCodesParser.CASTING_NO_REALIZADO,
+                throw new ProtocolParserException(ErrorCodesParser.CASTING_NO_REALIZADO,
                         "El mensaje recibido no tiene el formato correcto en Valor Cuota. Valor Cuota recibido: " + partesCompra[5].toString());
             }
             if (!partesCompra[5].equals("TOK") || !partesCompra[5].equals("SNF") || !partesCompra[5].equals("EXP")
                     || !partesCompra[5].equals("REP") || !partesCompra[5].equals("ECV")) {
-                throw new ec.edu.espe.distribuidas.protocolpi.pos.ProtocolParserException(ec.edu.espe.distribuidas.protocolpi.pos.ErrorCodesParser.VALORES_INCORRECTOS,
+                throw new ProtocolParserException(ErrorCodesParser.VALORES_INCORRECTOS,
                         "El mensaje recibido no contiene información válida. Estado recibido:" + partesCompra[5].toString());
             } else {
                 this.setEstado(partesCompra[5]);
             }
             if (partesCompra[6].length() != 5) {
-                throw new ec.edu.espe.distribuidas.protocolpi.pos.ProtocolParserException(ec.edu.espe.distribuidas.protocolpi.pos.ErrorCodesParser.VALORES_INCORRECTOS,
-                        "El mensaje recibido no contiene información válida. Referencia Voucher recibido:" + partesCompra[7].toString());
+                throw new ProtocolParserException(ErrorCodesParser.VALORES_INCORRECTOS,
+                        "El mensaje recibido no contiene información válida. Referencia Voucher recibido:" + partesCompra[6].toString());
             } else {
                 this.setReferenciaVoucher(partesCompra[6]);
             }
@@ -99,7 +98,13 @@ public class CompraIntegradorBancoRes extends MensajeProtocolo {
 
     @Override
     public String format() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        StringBuilder sb = new StringBuilder();
+        sb.append(this.getValorCuota());
+        sb.append(Protocol.SEPARADOR);
+        sb.append(getEstado());
+        sb.append(Protocol.SEPARADOR);
+        sb.append(getReferenciaVoucher());
+        return sb.toString();
     }
 
 }

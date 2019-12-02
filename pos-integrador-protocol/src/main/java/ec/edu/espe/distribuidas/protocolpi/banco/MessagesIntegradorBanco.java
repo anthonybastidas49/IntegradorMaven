@@ -19,8 +19,8 @@ package ec.edu.espe.distribuidas.protocolpi.banco;
  */
 public class MessagesIntegradorBanco {
 
-    public static final int COMPRA_POS_RQ = 3000;
-    public static final int COMPRA_POS_RS = 3010;
-    public static final int CANCELACION_POS_RQ = 4000;
-    public static final int CANCELACION_POS_RS = 4010;
+    public static final int COMPRA_BANCO_RQ = 3000;
+    public static final int COMPRA_BANCO_RS = 3010;
+    public static final int CANCELACION_BANCO_RQ = 4000;
+    public static final int CANCELACION_BANCO_RS = 4010;
 }

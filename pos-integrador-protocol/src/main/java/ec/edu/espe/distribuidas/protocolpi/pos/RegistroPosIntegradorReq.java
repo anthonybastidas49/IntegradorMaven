@@ -54,7 +54,7 @@ public class RegistroPosIntegradorReq extends MensajeProtocolo {
             throw new ProtocolParserException(ErrorCodesParser.CAMPOS_INSUFICIENTES,
                     "El mensaje recibido tiene menos campos de los necesarios para parsear la cabecera. Campos recibidos:" + text.length());
         } else {
-            this.setCabecera(new CabeceraPosIntegrador(partesRegistro[0], partesRegistro[1], Integer.parseInt(partesRegistro[2]), partesRegistro[3], Integer.parseInt(partesRegistro[4])));
+            //this.setCabecera(new CabeceraPosIntegrador(partesRegistro[0], partesRegistro[1], Integer.parseInt(partesRegistro[2]), partesRegistro[3], Integer.parseInt(partesRegistro[4])));
             try {
                 this.setPin(Integer.parseInt(partesRegistro[5]));
             } catch (Exception ex) {

@@ -132,7 +132,7 @@ public class CompraIntegradorBancoReq extends MensajeProtocolo{
             throw new ProtocolParserException(ErrorCodesParser.CAMPOS_INSUFICIENTES,
                     "El mensaje recibido tiene menos campos de los necesarios para parsear la cabecera. Campos recibidos:" + text.length());
         } else {
-            this.setCabecera(new CabeceraIntegradorBanco(partesCompra[0], Integer.parseInt(partesCompra[1]),partesCompra[2],Integer.parseInt(partesCompra[3])));
+            //this.setCabecera(new CabeceraIntegradorBanco(partesCompra[0], Integer.parseInt(partesCompra[1]),partesCompra[2],Integer.parseInt(partesCompra[3])));
             if (partesCompra[4].length() != 6) {
                 throw new ProtocolParserException(ErrorCodesParser.VALORES_INCORRECTOS,
                         "El mensaje recibido no contiene información válida. Codigo Establecimiento recibido:" + partesCompra[4].toString());
@@ -192,7 +192,25 @@ public class CompraIntegradorBancoReq extends MensajeProtocolo{
 
     @Override
     public String format() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        StringBuilder sb = new StringBuilder();
+        sb.append(getCodigoEstablecimiento());
+        sb.append(Protocol.SEPARADOR);
+        sb.append(getTipo());
+        sb.append(Protocol.SEPARADOR);
+        sb.append(getNumTarjeta());
+        sb.append(Protocol.SEPARADOR);
+        sb.append(getCvv());
+        sb.append(Protocol.SEPARADOR);
+        sb.append(getFechaExpiracion());
+        sb.append(Protocol.SEPARADOR);
+        sb.append(getValorCompra());
+        sb.append(Protocol.SEPARADOR);
+        sb.append(getImpuesto());
+        sb.append(Protocol.SEPARADOR);
+        sb.append(getMonto());
+        sb.append(Protocol.SEPARADOR);
+        sb.append(getMeses());
+        return sb.toString();
     }
     
     

@@ -11,7 +11,6 @@
  */
 package ec.edu.espe.distribuidas.protocolpi.banco;
 
-import ec.edu.espe.distribuidas.protocolpi.pos.ProtocolParserException;
 import java.math.BigDecimal;
 
 /**
@@ -56,23 +55,23 @@ public class CancelacionIntegradorBancoRes extends MensajeProtocolo{
     public void setEstado(String estado) {
         this.estado = estado;
     }
-    
+
     @Override
     public void parse(String text) throws ProtocolParserException {
-        String partesCancelacion[] = text.split(ec.edu.espe.distribuidas.protocolpi.pos.Protocol.SEPARADOR);
-        if (partesCancelacion.length != 7) {
-            throw new ProtocolParserException(ec.edu.espe.distribuidas.protocolpi.pos.ErrorCodesParser.CAMPOS_INSUFICIENTES,
+       String partesCancelacion[] = text.split(Protocol.SEPARADOR);
+        if (partesCancelacion.length != 6) {
+            throw new ProtocolParserException(ErrorCodesParser.CAMPOS_INSUFICIENTES,
                     "El mensaje recibido tiene menos campos de los necesarios para parsear la cabecera. Campos recibidos:" + text.length());
         } else {
-            this.setCabecera(new CabeceraIntegradorBanco(partesCancelacion[0], Integer.parseInt(partesCancelacion[1]), partesCancelacion[2], Integer.parseInt(partesCancelacion[3])));
+            //this.setCabecera(new CabeceraIntegradorBanco(partesCancelacion[0], Integer.parseInt(partesCancelacion[1]), partesCancelacion[2], Integer.parseInt(partesCancelacion[3])));
             try {
                 this.setMontoCancelado(new BigDecimal(partesCancelacion[4]));
             } catch (Exception ex) {
-                throw new ProtocolParserException(ec.edu.espe.distribuidas.protocolpi.pos.ErrorCodesParser.CASTING_NO_REALIZADO,
+                throw new ProtocolParserException(ErrorCodesParser.CASTING_NO_REALIZADO,
                         "El mensaje recibido no tiene el formato correcto en Valor Cuota. Valor Cuota recibido: " + partesCancelacion[5].toString());
             }
             if (!partesCancelacion[5].equals("TOK") || !partesCancelacion[5].equals("REP") || !partesCancelacion[5].equals("EPN")) {
-                throw new ProtocolParserException(ec.edu.espe.distribuidas.protocolpi.pos.ErrorCodesParser.VALORES_INCORRECTOS,
+                throw new ProtocolParserException(ErrorCodesParser.VALORES_INCORRECTOS,
                         "El mensaje recibido no contiene información válida. Estado recibido:" + partesCancelacion[5].toString());
             } else {
                 this.setEstado(partesCancelacion[5]);
@@ -82,8 +81,11 @@ public class CancelacionIntegradorBancoRes extends MensajeProtocolo{
 
     @Override
     public String format() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        StringBuilder sb = new StringBuilder();
+        sb.append(this.getMontoCancelado());
+        sb.append(Protocol.SEPARADOR);
+        sb.append(getEstado());
+        return sb.toString();
     }
-    
-    
+      
 }

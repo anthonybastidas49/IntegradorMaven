@@ -19,21 +19,21 @@ package ec.edu.espe.distribuidas.protocolpi.banco;
  * @author Paspuel
  * @author Torres
  */
-public class CancelaciónIntegradorBancoReq extends MensajeProtocolo {
+public class CancelacionIntegradorBancoReq extends MensajeProtocolo {
 
     private String codigoEstablecimiento;
     private String numTarjeta;
     private String referenciaVoucher;
 
-    public CancelaciónIntegradorBancoReq() {
+    public CancelacionIntegradorBancoReq() {
     }
 
-    public CancelaciónIntegradorBancoReq(CabeceraIntegradorBanco cabecera) {
+    public CancelacionIntegradorBancoReq(CabeceraIntegradorBanco cabecera) {
         super();
         super.cabecera = cabecera;
     }
 
-    public CancelaciónIntegradorBancoReq(CabeceraIntegradorBanco cabecera, String codigoEstablecimiento, String numTarjeta, String referenciaVoucher) {
+    public CancelacionIntegradorBancoReq(CabeceraIntegradorBanco cabecera, String codigoEstablecimiento, String numTarjeta, String referenciaVoucher) {
         super();
         super.cabecera = cabecera;
         this.codigoEstablecimiento = codigoEstablecimiento;
@@ -73,7 +73,7 @@ public class CancelaciónIntegradorBancoReq extends MensajeProtocolo {
             throw new ProtocolParserException(ErrorCodesParser.CAMPOS_INSUFICIENTES,
                     "El mensaje recibido tiene menos campos de los necesarios para parsear la cabecera. Campos recibidos:" + text.length());
         } else {
-            this.setCabecera(new CabeceraIntegradorBanco(partesCancelacion[0], Integer.parseInt(partesCancelacion[1]), partesCancelacion[2], Integer.parseInt(partesCancelacion[3])));
+            //this.setCabecera(new CabeceraIntegradorBanco(partesCancelacion[0], Integer.parseInt(partesCancelacion[1]), partesCancelacion[2], Integer.parseInt(partesCancelacion[3])));
             if (partesCancelacion[4].length() != 6) {
                 throw new ProtocolParserException(ErrorCodesParser.VALORES_INCORRECTOS,
                         "El mensaje recibido no contiene información válida. Codigo Establecimiento recibido:" + partesCancelacion[4].toString());
@@ -98,7 +98,13 @@ public class CancelaciónIntegradorBancoReq extends MensajeProtocolo {
 
     @Override
     public String format() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        StringBuilder sb = new StringBuilder();
+        sb.append(getCodigoEstablecimiento());
+        sb.append(Protocol.SEPARADOR);
+        sb.append(getNumTarjeta());
+        sb.append(Protocol.SEPARADOR);
+        sb.append(getReferenciaVoucher());
+        return sb.toString();
     }
 
 }
