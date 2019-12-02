@@ -34,7 +34,6 @@ public class CompraPosIntegradorReq extends MensajeProtocolo {
     private BigDecimal impuesto;
     private BigDecimal monto;
     private Integer meses;
-    private String referenciaVoucher;
 
     public CompraPosIntegradorReq() {
     }
@@ -44,7 +43,7 @@ public class CompraPosIntegradorReq extends MensajeProtocolo {
         super.cabecera = cabecera;
     }
 
-    public CompraPosIntegradorReq(CabeceraPosIntegrador cabecera, Integer codigoSesion, Integer codigoBanco, String codigoEstablecimiento, String tipo, String numTarjeta, Integer cvv, String fechaExpiracion, BigDecimal valorCompra, BigDecimal impuesto, BigDecimal monto, Integer meses, String referenciaVoucher) {
+    public CompraPosIntegradorReq(CabeceraPosIntegrador cabecera, Integer codigoSesion, Integer codigoBanco, String codigoEstablecimiento, String tipo, String numTarjeta, Integer cvv, String fechaExpiracion, BigDecimal valorCompra, BigDecimal impuesto, BigDecimal monto, Integer meses) {
         super();
         super.cabecera = cabecera;
         this.codigoSesion = codigoSesion;
@@ -58,7 +57,6 @@ public class CompraPosIntegradorReq extends MensajeProtocolo {
         this.impuesto = impuesto;
         this.monto = monto;
         this.meses = meses;
-        this.referenciaVoucher = referenciaVoucher;
     }
 
     public Integer getCodigoSesion() {
@@ -147,14 +145,6 @@ public class CompraPosIntegradorReq extends MensajeProtocolo {
 
     public void setMeses(Integer meses) {
         this.meses = meses;
-    }
-
-    public String getReferenciaVoucher() {
-        return referenciaVoucher;
-    }
-
-    public void setReferenciaVoucher(String referenciaVoucher) {
-        this.referenciaVoucher = referenciaVoucher;
     }
 
     @Override
