@@ -12,9 +12,10 @@
  */
 package ec.edu.espe.distribuidas.protocolpi.banco;
 
+
 /**
- * Clase CabeceraIntegradorBanco. Creacion de la clase CabeceraIntegradorBanco
- * con metodos set y get para la implementación del protocolo
+ * Clase CabeceraIntegradorBanco. Creacion de la clase CabeceraIntegradorBanco con
+ * metodos set y get para la implementación del protocolo
  *
  * @author Paspuel
  * @author Torres
@@ -67,5 +68,6 @@ public class CabeceraIntegradorBanco {
     public void setLongitudCuerpo(Integer longitudCuerpo) {
         this.longitudCuerpo = longitudCuerpo;
     }
+    
 
 }

@@ -23,16 +23,16 @@ import ec.edu.espe.distribuidas.protocolpi.pos.*;
  */
 public abstract class MensajeProtocolo implements Protocol {
 
-    protected CabeceraPosIntegrador cabecera;
+    protected CabeceraIntegradorBanco cabecera;
 
     public MensajeProtocolo() {
     }
 
-    public CabeceraPosIntegrador getCabecera() {
+    public CabeceraIntegradorBanco getCabecera() {
         return cabecera;
     }
 
-    public void setCabecera(CabeceraPosIntegrador cabecera) {
+    public void setCabecera(CabeceraIntegradorBanco cabecera) {
         this.cabecera = cabecera;
     }
 

@@ -12,8 +12,6 @@
  */
 package ec.edu.espe.distribuidas.protocolpi.pos;
 
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  * Clase RegistroPosIntegradorReq. Creacion de la clase RegistroPosIntegradorReq
