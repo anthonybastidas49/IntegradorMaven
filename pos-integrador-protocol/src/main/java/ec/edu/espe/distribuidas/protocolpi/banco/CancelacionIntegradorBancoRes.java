@@ -35,10 +35,23 @@ public class CancelacionIntegradorBancoRes extends MensajeProtocolo{
         this.montoCancelado = montoCancelado;
         this.estado = estado;
     }
-    
-    
-    
 
+    public BigDecimal getMontoCancelado() {
+        return montoCancelado;
+    }
+
+    public void setMontoCancelado(BigDecimal montoCancelado) {
+        this.montoCancelado = montoCancelado;
+    }
+
+    public String getEstado() {
+        return estado;
+    }
+
+    public void setEstado(String estado) {
+        this.estado = estado;
+    }
+    
     @Override
     public void parse(String text) throws ProtocolParserException {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
