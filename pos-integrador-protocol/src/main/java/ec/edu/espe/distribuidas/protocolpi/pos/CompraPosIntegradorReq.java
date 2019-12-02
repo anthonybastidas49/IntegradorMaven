@@ -171,7 +171,7 @@ public class CompraPosIntegradorReq extends MensajeProtocolo {
                 throw new ProtocolParserException(ErrorCodesParser.VALORES_INCORRECTOS,
                         "El mensaje recibido no contiene información válida. Codigo Establecimiento recibido:" + partesCompra[7].toString());
             } else {
-                this.setCodigoEstablecimiento(partesCompra[8]);
+                this.setCodigoEstablecimiento(partesCompra[7]);
             }
             if (!partesCompra[8].equals("DIF") || !partesCompra[8].equals("COR")) {
                 throw new ProtocolParserException(ErrorCodesParser.VALORES_INCORRECTOS,

@@ -15,7 +15,7 @@ package ec.edu.espe.distribuidas.protocolpi.pos;
 /**
  * Clase CancelacionPosIntegradorReq Creacion de la clase
  * CancelacionPosIntegradorReq con metodos set y get para la implementación del
- * protocolo Concelacion en request
+ * protocolo Cancelacion en request
  *
  * @author Paspuel
  * @author Torres

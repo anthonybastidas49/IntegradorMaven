@@ -127,7 +127,67 @@ public class CompraIntegradorBancoReq extends MensajeProtocolo{
      
     @Override
     public void parse(String text) throws ProtocolParserException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        String partesCompra[] = text.split(Protocol.SEPARADOR);
+        if (partesCompra.length != 13) {
+            throw new ProtocolParserException(ErrorCodesParser.CAMPOS_INSUFICIENTES,
+                    "El mensaje recibido tiene menos campos de los necesarios para parsear la cabecera. Campos recibidos:" + text.length());
+        } else {
+            this.setCabecera(new CabeceraIntegradorBanco(partesCompra[0], Integer.parseInt(partesCompra[1]),partesCompra[2],Integer.parseInt(partesCompra[3])));
+            if (partesCompra[4].length() != 6) {
+                throw new ProtocolParserException(ErrorCodesParser.VALORES_INCORRECTOS,
+                        "El mensaje recibido no contiene información válida. Codigo Establecimiento recibido:" + partesCompra[4].toString());
+            } else {
+                this.setCodigoEstablecimiento(partesCompra[4]);
+            }
+            if (!partesCompra[5].equals("DIF") || !partesCompra[5].equals("COR")) {
+                throw new ProtocolParserException(ErrorCodesParser.VALORES_INCORRECTOS,
+                        "El mensaje recibido no contiene información válida. Tipo recibido:" + partesCompra[5].toString());
+            } else {
+                this.setTipo(partesCompra[5]);
+            }
+            if (partesCompra[6].length() != 16 || partesCompra[6].matches("[0-9]*")) {
+                throw new ProtocolParserException(ErrorCodesParser.VALORES_INCORRECTOS,
+                        "El mensaje recibido no contiene información válida. Numero Tarjeta recibido:" + partesCompra[6].toString());
+            } else {
+                this.setNumTarjeta(partesCompra[6]);
+            }
+            try {
+                this.setCvv(Integer.parseInt(partesCompra[7]));
+            } catch (Exception ex) {
+                throw new ProtocolParserException(ErrorCodesParser.CASTING_NO_REALIZADO,
+                        "El mensaje recibido no tiene el formato correcto en CVV. CVV recibido: " + partesCompra[7].toString());
+            }
+            if (partesCompra[8].length() != 5) {
+                throw new ProtocolParserException(ErrorCodesParser.VALORES_INCORRECTOS,
+                        "El mensaje recibido no contiene información válida. Fecha Expiracion recibido:" + partesCompra[8].toString());
+            } else {
+                this.setFechaExpiracion(partesCompra[8]);
+            }
+            try {
+                this.setValorCompra(new BigDecimal(partesCompra[9]));
+            } catch (Exception ex) {
+                throw new ProtocolParserException(ErrorCodesParser.CASTING_NO_REALIZADO,
+                        "El mensaje recibido no tiene el formato correcto en Valor Compra. Valor Compra recibido: " + partesCompra[9].toString());
+            }
+            try {
+                this.setImpuesto(new BigDecimal(partesCompra[10]));
+            } catch (Exception ex) {
+                throw new ProtocolParserException(ErrorCodesParser.CASTING_NO_REALIZADO,
+                        "El mensaje recibido no tiene el formato correcto en Valor Compra. Valor Compra recibido: " + partesCompra[10].toString());
+            }
+            try {
+                this.setMonto(new BigDecimal(partesCompra[11]));
+            } catch (Exception ex) {
+                throw new ProtocolParserException(ErrorCodesParser.CASTING_NO_REALIZADO,
+                        "El mensaje recibido no tiene el formato correcto en Monto. Monto recibido: " + partesCompra[11].toString());
+            }
+            try {
+                this.setMeses(Integer.parseInt(partesCompra[12]));
+            } catch (Exception ex) {
+                throw new ProtocolParserException(ErrorCodesParser.CASTING_NO_REALIZADO,
+                        "El mensaje recibido no tiene el formato correcto en Meses. Meses recibido: " + partesCompra[12].toString());
+            }
+        } 
     }
 
     @Override
