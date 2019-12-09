@@ -11,6 +11,11 @@
             <artifactId>dbutils</artifactId>
             <version>1</version>
         </dependency>
+        <dependency>
+            <groupId>com.protocolpi</groupId>
+            <artifactId>protocolpi</artifactId>
+            <version>1</version>
+        </dependency>
     </dependencies>
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
