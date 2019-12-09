@@ -70,8 +70,7 @@ public class RegistroPosIntegradorRes extends MensajeProtocolo {
                 throw new ProtocolParserException(ErrorCodesParser.CASTING_NO_REALIZADO,
                         "El mensaje recibido no tiene el formato correcto en codigo sesión. Codigo sesion recibido: " + partesRegistro[5].toString());
             }
-            if(!partesRegistro[6].equals("ACT") || !partesRegistro[6].equals("INA") || !partesRegistro[6].equals("BLQ")
-                    || !partesRegistro[6].equals("NRG")|| !partesRegistro[6].equals("EPN")){
+            if(partesRegistro[6].length()!=3){
                 throw new ProtocolParserException(ErrorCodesParser.VALORES_INCORRECTOS,
                         "El mensaje recibido no contiene información válida. Estado recibido:" + partesRegistro[6].toString());
             

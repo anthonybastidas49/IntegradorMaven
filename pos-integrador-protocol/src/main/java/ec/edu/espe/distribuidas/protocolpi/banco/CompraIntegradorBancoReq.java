@@ -139,7 +139,7 @@ public class CompraIntegradorBancoReq extends MensajeProtocolo{
             } else {
                 this.setCodigoEstablecimiento(partesCompra[4]);
             }
-            if (!partesCompra[5].equals("DIF") || !partesCompra[5].equals("COR")) {
+            if (partesCompra[5].length()!=3) {
                 throw new ProtocolParserException(ErrorCodesParser.VALORES_INCORRECTOS,
                         "El mensaje recibido no contiene información válida. Tipo recibido:" + partesCompra[5].toString());
             } else {

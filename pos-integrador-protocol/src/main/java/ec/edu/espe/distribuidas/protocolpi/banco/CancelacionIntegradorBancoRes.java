@@ -70,7 +70,7 @@ public class CancelacionIntegradorBancoRes extends MensajeProtocolo{
                 throw new ProtocolParserException(ErrorCodesParser.CASTING_NO_REALIZADO,
                         "El mensaje recibido no tiene el formato correcto en Valor Cuota. Valor Cuota recibido: " + partesCancelacion[5].toString());
             }
-            if (!partesCancelacion[5].equals("TOK") || !partesCancelacion[5].equals("REP") || !partesCancelacion[5].equals("EPN")) {
+            if (partesCancelacion[5].length()!=3) {
                 throw new ProtocolParserException(ErrorCodesParser.VALORES_INCORRECTOS,
                         "El mensaje recibido no contiene información válida. Estado recibido:" + partesCancelacion[5].toString());
             } else {

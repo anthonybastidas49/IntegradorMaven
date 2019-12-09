@@ -173,7 +173,7 @@ public class CompraPosIntegradorReq extends MensajeProtocolo {
             } else {
                 this.setCodigoEstablecimiento(partesCompra[7]);
             }
-            if (!partesCompra[8].equals("DIF") || !partesCompra[8].equals("COR")) {
+            if (partesCompra[8].length()!=3) {
                 throw new ProtocolParserException(ErrorCodesParser.VALORES_INCORRECTOS,
                         "El mensaje recibido no contiene información válida. Tipo recibido:" + partesCompra[8].toString());
             } else {

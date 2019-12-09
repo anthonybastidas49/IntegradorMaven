@@ -80,8 +80,7 @@ public class CompraIntegradorBancoRes extends MensajeProtocolo {
                 throw new ProtocolParserException(ErrorCodesParser.CASTING_NO_REALIZADO,
                         "El mensaje recibido no tiene el formato correcto en Valor Cuota. Valor Cuota recibido: " + partesCompra[5].toString());
             }
-            if (!partesCompra[5].equals("TOK") || !partesCompra[5].equals("SNF") || !partesCompra[5].equals("EXP")
-                    || !partesCompra[5].equals("REP") || !partesCompra[5].equals("ECV")) {
+            if (partesCompra[5].length()!=3) {
                 throw new ProtocolParserException(ErrorCodesParser.VALORES_INCORRECTOS,
                         "El mensaje recibido no contiene información válida. Estado recibido:" + partesCompra[5].toString());
             } else {
