@@ -34,7 +34,6 @@ public class MessageFormat {
         sb.append(cabecera.getLongitudCuerpo().toString());
         sb.append(Protocol.SEPARADOR);
         sb.append(body);
-        sb.append(Protocol.SEPARADOR);
         return sb.toString();
     }
 }

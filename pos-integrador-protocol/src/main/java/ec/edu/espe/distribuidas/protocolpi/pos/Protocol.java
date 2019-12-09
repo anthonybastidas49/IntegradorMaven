@@ -10,6 +10,8 @@
  */
 package ec.edu.espe.distribuidas.protocolpi.pos;
 
+import java.util.regex.Pattern;
+
 /**
  * Interface Protocol que contiene metodos para tratamiento del protocolo
  *
@@ -18,8 +20,8 @@ package ec.edu.espe.distribuidas.protocolpi.pos;
  */
 public interface Protocol {
 
-    public static final String SEPARADOR = "\\|";
-
+    public static final String SEPARADOR2 = Pattern.quote("|");
+    public static final String SEPARADOR= "|";
     void parse(String text) throws ProtocolParserException;
 
     String format();

@@ -68,7 +68,7 @@ public class CompraIntegradorBancoRes extends MensajeProtocolo {
 
     @Override
     public void parse(String text) throws ProtocolParserException {
-        String partesCompra[] = text.split(ec.edu.espe.distribuidas.protocolpi.pos.Protocol.SEPARADOR);
+        String partesCompra[] = text.split(ec.edu.espe.distribuidas.protocolpi.pos.Protocol.SEPARADOR2);
         if (partesCompra.length != 7) {
             throw new ProtocolParserException(ErrorCodesParser.CAMPOS_INSUFICIENTES,
                     "El mensaje recibido tiene menos campos de los necesarios para parsear la cabecera. Campos recibidos:" + text.length());

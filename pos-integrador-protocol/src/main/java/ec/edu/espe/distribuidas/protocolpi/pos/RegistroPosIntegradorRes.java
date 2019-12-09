@@ -58,7 +58,7 @@ public class RegistroPosIntegradorRes extends MensajeProtocolo {
 
     @Override
     public void parse(String text) throws ProtocolParserException{
-        String partesRegistro[]=text.split(Protocol.SEPARADOR);
+        String partesRegistro[]=text.split(Protocol.SEPARADOR2);
         if(partesRegistro.length!=7){
             throw new ProtocolParserException(ErrorCodesParser.CAMPOS_INSUFICIENTES,
                     "El mensaje recibido tiene menos campos de los necesarios para parsear la cabecera. Campos recibidos:" + text.length());

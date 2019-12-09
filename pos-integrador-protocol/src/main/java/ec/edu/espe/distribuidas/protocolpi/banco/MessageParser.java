@@ -29,7 +29,7 @@ public class MessageParser {
     }
     
     private static CabeceraIntegradorBanco parseCabecera(String message) throws ProtocolParserException {
-        String partes[] = message.split(Protocol.SEPARADOR);
+        String partes[] = message.split(Protocol.SEPARADOR2);
         CabeceraIntegradorBanco cabecera = new CabeceraIntegradorBanco();
         if (partes.length <= 5) {
             throw new ProtocolParserException(ErrorCodesParser.CAMPOS_INSUFICIENTES,

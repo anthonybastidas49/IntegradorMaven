@@ -17,7 +17,8 @@ package ec.edu.espe.distribuidas.protocolpi.banco;
  */
 public interface Protocol {
 
-    public static final String SEPARADOR = "\\|";
+    public static final String SEPARADOR2 = "\\|";
+    public static final String SEPARADOR="|";
 
     void parse(String text) throws ProtocolParserException;
 

@@ -98,7 +98,7 @@ public class CancelacionPosIntegradorReq extends MensajeProtocolo {
 
     @Override
     public void parse(String text) throws ProtocolParserException {
-        String partesCancelacion[] = text.split(Protocol.SEPARADOR);
+        String partesCancelacion[] = text.split(Protocol.SEPARADOR2);
         if (partesCancelacion.length != 11) {
             throw new ProtocolParserException(ErrorCodesParser.CAMPOS_INSUFICIENTES,
                     "El mensaje recibido tiene menos campos de los necesarios para parsear la cabecera. Campos recibidos:" + text.length());
@@ -128,7 +128,7 @@ public class CancelacionPosIntegradorReq extends MensajeProtocolo {
                 throw new ProtocolParserException(ErrorCodesParser.CASTING_NO_REALIZADO,
                         "El mensaje recibido no tiene el formato correcto en pin. Pin recibido: " + partesCancelacion[8].toString());
             }
-            if (partesCancelacion[9].length() != 16 || partesCancelacion[9].matches("[0-9]*")) {
+            if (partesCancelacion[9].length() != 16 || !partesCancelacion[9].matches("[0-9]*")) {
                 throw new ProtocolParserException(ErrorCodesParser.VALORES_INCORRECTOS,
                         "El mensaje recibido no contiene información válida. Numero Tarjeta recibido:" + partesCancelacion[9].toString());
             } else {

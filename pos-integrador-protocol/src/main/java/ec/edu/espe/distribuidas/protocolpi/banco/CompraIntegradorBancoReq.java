@@ -127,7 +127,7 @@ public class CompraIntegradorBancoReq extends MensajeProtocolo{
      
     @Override
     public void parse(String text) throws ProtocolParserException {
-        String partesCompra[] = text.split(Protocol.SEPARADOR);
+        String partesCompra[] = text.split(Protocol.SEPARADOR2);
         if (partesCompra.length != 13) {
             throw new ProtocolParserException(ErrorCodesParser.CAMPOS_INSUFICIENTES,
                     "El mensaje recibido tiene menos campos de los necesarios para parsear la cabecera. Campos recibidos:" + text.length());
@@ -145,7 +145,7 @@ public class CompraIntegradorBancoReq extends MensajeProtocolo{
             } else {
                 this.setTipo(partesCompra[5]);
             }
-            if (partesCompra[6].length() != 16 || partesCompra[6].matches("[0-9]*")) {
+            if (partesCompra[6].length() != 16 || !partesCompra[6].matches("[0-9]*")) {
                 throw new ProtocolParserException(ErrorCodesParser.VALORES_INCORRECTOS,
                         "El mensaje recibido no contiene información válida. Numero Tarjeta recibido:" + partesCompra[6].toString());
             } else {

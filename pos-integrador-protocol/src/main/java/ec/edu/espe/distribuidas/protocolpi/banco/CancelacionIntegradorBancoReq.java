@@ -68,7 +68,7 @@ public class CancelacionIntegradorBancoReq extends MensajeProtocolo {
 
     @Override
     public void parse(String text) throws ProtocolParserException {
-        String partesCancelacion[] = text.split(Protocol.SEPARADOR);
+        String partesCancelacion[] = text.split(Protocol.SEPARADOR2);
         if (partesCancelacion.length != 7) {
             throw new ProtocolParserException(ErrorCodesParser.CAMPOS_INSUFICIENTES,
                     "El mensaje recibido tiene menos campos de los necesarios para parsear la cabecera. Campos recibidos:" + text.length());
@@ -80,7 +80,7 @@ public class CancelacionIntegradorBancoReq extends MensajeProtocolo {
             } else {
                 this.setCodigoEstablecimiento(partesCancelacion[4]);
             }
-            if (partesCancelacion[5].length() != 16 || partesCancelacion[5].matches("[0-9]*")) {
+            if (partesCancelacion[5].length() != 16 || !partesCancelacion[5].matches("[0-9]*")) {
                 throw new ProtocolParserException(ErrorCodesParser.VALORES_INCORRECTOS,
                         "El mensaje recibido no contiene información válida. Numero Tarjeta recibido:" + partesCancelacion[5].toString());
             } else {

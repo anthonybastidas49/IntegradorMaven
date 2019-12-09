@@ -60,7 +60,7 @@ public class CancelacionPosIntegradorRes extends MensajeProtocolo {
 
     @Override
     public void parse(String text) throws ProtocolParserException {
-        String partesCancelacion[] = text.split(Protocol.SEPARADOR);
+        String partesCancelacion[] = text.split(Protocol.SEPARADOR2);
         if (partesCancelacion.length != 7) {
             throw new ProtocolParserException(ErrorCodesParser.CAMPOS_INSUFICIENTES,
                     "El mensaje recibido tiene menos campos de los necesarios para parsear la cabecera. Campos recibidos:" + text.length());

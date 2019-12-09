@@ -32,7 +32,7 @@ public class MessageParser {
     }
 
     private static CabeceraPosIntegrador parseCabecera(String message) throws ProtocolParserException {
-        String partes[] = message.split(Protocol.SEPARADOR);
+        String partes[] = message.split(Protocol.SEPARADOR2);
         CabeceraPosIntegrador cabecera = new CabeceraPosIntegrador();
         if (partes.length <= 5) {
             throw new ProtocolParserException(ErrorCodesParser.CAMPOS_INSUFICIENTES,
