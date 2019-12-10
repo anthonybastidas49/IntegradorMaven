@@ -3,54 +3,64 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package ec.edu.espe.integrador.hilos;
+package ec.edu.espe.integrador.started;
 
+import ec.edu.espe.distribuidas.protocolpi.banco.CancelacionIntegradorBancoReq;
+import ec.edu.espe.distribuidas.protocolpi.banco.CancelacionIntegradorBancoRes;
+import ec.edu.espe.distribuidas.protocolpi.banco.CompraIntegradorBancoReq;
+import ec.edu.espe.distribuidas.protocolpi.banco.CompraIntegradorBancoRes;
+import ec.edu.espe.distribuidas.protocolpi.pos.CancelacionPosIntegradorReq;
+import ec.edu.espe.distribuidas.protocolpi.pos.CancelacionPosIntegradorRes;
+import ec.edu.espe.distribuidas.protocolpi.pos.CompraPosIntegradorReq;
+import ec.edu.espe.distribuidas.protocolpi.pos.CompraPosIntegradorRes;
+import ec.edu.espe.distribuidas.protocolpi.pos.MensajeProtocolo;
+import ec.edu.espe.distribuidas.protocolpi.pos.MessageParser;
+import ec.edu.espe.distribuidas.protocolpi.pos.ProtocolParserException;
+import ec.edu.espe.distribuidas.protocolpi.pos.RegistroPosIntegradorReq;
+import ec.edu.espe.distribuidas.protocolpi.pos.RegistroPosIntegradorRes;
+import ec.edu.espe.integrador.dao.PosDAO;
 import java.io.BufferedReader;
+import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.Socket;
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import java.util.regex.Pattern;
 
 /**
  *
  * @author Anthony
  */
 public class Worker extends Thread {
+    private static final Logger LOG = Logger.getLogger(PosDAO.class.getName());
+    
     public static final String IP_BANCOA = "10.240.19.178";
     public static final int PORT_BANCOA = 666;
     public static final String IP_BANCOB = "192.168.1.104";
     public static final int PORT_BANCOB = 666;
-    private static final String SEPARATOR = Pattern.quote("|");
     private Socket socketClientePos;
     InputStream inp = null;
     BufferedReader brinp = null;
     PrintWriter out = null;
+
     public Worker(Socket socketCliente) {
         this.socketClientePos = socketCliente;
     }
+
     @Override
     public void run() {
-        Calendar calendar = Calendar.getInstance();
-        SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
         try {
-            int resultadoT = 0;
             inp = socketClientePos.getInputStream();
             brinp = new BufferedReader(new InputStreamReader(inp));
             out = new PrintWriter(socketClientePos.getOutputStream());
             String line = brinp.readLine();
-            String parts[] = line.split(SEPARATOR);
-            System.out.println(line);
-            switch (parts[0]) {
+            /*switch (parts[0]) {
                 case "RGP":
                     /*res.marshalRegistroPos();
                     out.write(res.getMensaje());
                     out.flush();
-                    break;*/
+                    break;
                 case "CMP":
                     /*CompraReq reqC = new CompraReq(line);
                     reqC.unmarshalCompra();
@@ -75,7 +85,7 @@ public class Worker extends Thread {
                     resC.marshallCompras();
                     out.write(resC.getMensaje());
                     out.flush();*/
-                    break;
+ /* break;
                 case "CNP":
                     /*CancelacionReq reqCa = new CancelacionReq(line);
                     reqCa.unmarshallCancelacion();
@@ -100,15 +110,55 @@ public class Worker extends Thread {
                     resCa.marshalCancelacion();
                     out.write(resCa.getMensaje());
                     out.flush();
-                    break;*/
+                    break;
             }
             socketClientePos.close();
         } catch (Exception ex) {
             Logger.getLogger(Worker.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
+          
+        }*/
 
+        } catch (IOException ex) {
+            Logger.getLogger(Worker.class.getName()).log(Level.SEVERE, null, ex);
         }
-
     }
+    
 
+    private static void instanciaPos(String mensaje) {
+        try {
+            MensajeProtocolo mensajeProtocolo=MessageParser.parse(mensaje);
+            if(mensajeProtocolo instanceof RegistroPosIntegradorReq){
+                RegistroPosIntegradorReq request=(RegistroPosIntegradorReq)mensajeProtocolo;
+            }else if(mensajeProtocolo instanceof RegistroPosIntegradorRes){
+                RegistroPosIntegradorRes response=(RegistroPosIntegradorRes)mensajeProtocolo;
+            }else if(mensajeProtocolo instanceof CompraPosIntegradorReq){
+                CompraPosIntegradorReq request=(CompraPosIntegradorReq)mensajeProtocolo;
+            }else if(mensajeProtocolo instanceof CompraPosIntegradorRes){
+                CompraPosIntegradorRes response=(CompraPosIntegradorRes)mensajeProtocolo;
+            }else if(mensajeProtocolo instanceof CancelacionPosIntegradorReq){
+                CancelacionPosIntegradorReq request=(CancelacionPosIntegradorReq)mensajeProtocolo;
+            }else if(mensajeProtocolo instanceof CancelacionPosIntegradorRes){
+                CancelacionPosIntegradorRes request=(CancelacionPosIntegradorRes)mensajeProtocolo;
+            }
+        } catch (ProtocolParserException sqlEx) {
+            LOG.log(Level.SEVERE,"ERROR AL EJECUTAR EL METODO instancePos",sqlEx);
+        }
+    }
+    private static void instanciaBanco(String mensaje) {
+        try {
+            ec.edu.espe.distribuidas.protocolpi.banco.MensajeProtocolo mensajeProtocolo = ec.edu.espe.distribuidas.protocolpi.banco.MessageParser.parse(mensaje);
+            if (mensajeProtocolo instanceof CompraIntegradorBancoReq) {
+                CompraIntegradorBancoReq request = (CompraIntegradorBancoReq) mensajeProtocolo;
+            } else if (mensajeProtocolo instanceof CompraIntegradorBancoRes) {
+                CompraIntegradorBancoRes response = (CompraIntegradorBancoRes) mensajeProtocolo;
+            } else if (mensajeProtocolo instanceof CancelacionIntegradorBancoReq) {
+                CancelacionIntegradorBancoReq request = (CancelacionIntegradorBancoReq) mensajeProtocolo;
+            } else if (mensajeProtocolo instanceof CancelacionIntegradorBancoRes) {
+                CancelacionIntegradorBancoRes request = (CancelacionIntegradorBancoRes) mensajeProtocolo;
+            }
+        }catch (ec.edu.espe.distribuidas.protocolpi.banco.ProtocolParserException sqlEx) {
+            LOG.log(Level.SEVERE,"ERROR AL EJECUTAR EL METODO instancePos",sqlEx);
+        }
+    }
 }

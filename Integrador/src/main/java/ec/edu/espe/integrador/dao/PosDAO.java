@@ -10,13 +10,10 @@
  */
 package ec.edu.espe.integrador.dao;
 
-import ec.edu.espe.distribuidas.dbutils.bdd.ConnectionManager;
+import ec.edu.espe.distribuidas.dbutils.bdd.AbstractDAO;
 import ec.edu.espe.integrador.modelo.Pos;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -26,82 +23,54 @@ import java.util.logging.Logger;
  *
  * @author Paspuel-Torres
  */
-public class PosDAO {
+public class PosDAO extends AbstractDAO<Pos>{
 
     private static final String FIND_PK = "SELECT * FROM POS WHERE COD_POS=?";
     private static final String FIND_BY_CODIGO_DISPOSITIVO = "SELECT * FROM POS WHERE COD_DISPOSITIVO=?";
     private static final String FIND_BY_ESTADO = "SELECT * FROM POS WHERE ESTADO=?";
     private static final Logger LOG = Logger.getLogger(PosDAO.class.getName());
 
-    private final ConnectionManager connectionManager;
-    private final Connection conn;
-
     public PosDAO() {
-        this.connectionManager = ConnectionManager.getInstance();
-        this.conn = this.connectionManager.getConnection();
+            super();
     }
 
-    public Pos findByPK(Integer codigo) {
+    public Pos findByPk(Integer codigo){
         try {
-            PreparedStatement pstm = conn.prepareStatement(FIND_PK);
-            pstm.setInt(1, codigo);
-            ResultSet rs = pstm.executeQuery();
-            rs.next();
-            Pos pos = new Pos();
-            pos.setCodigo(rs.getInt(1));
-            pos.setCodigoDispositivo(rs.getString(2));
-            pos.setPin(rs.getString(3));
-            pos.setEstado(rs.getString(4));
-            return pos;
+            return super.findByPK(new Object[]{codigo});
         } catch (SQLException sqlEx) {
-            LOG.log(Level.SEVERE, "Error al ejecutar el método findByPK", sqlEx);
+            LOG.log(Level.SEVERE,"ERROR AL EJECUTAR EL METODO FINDBYPK",sqlEx);
             return null;
-        } finally {
-            this.connectionManager.releaseConnection(this.conn);
+        } finally{
+            super.closeConnection();
         }
     }
-
-    public Pos findByCodigoDispositivo(String codigoDispositivo) {
+    public List<Pos> findByEstado(String estado){
         try {
-            PreparedStatement pstm = conn.prepareStatement(FIND_BY_CODIGO_DISPOSITIVO);
-            pstm.setString(1, codigoDispositivo);
-            ResultSet rs = pstm.executeQuery();
-            rs.next();
-            Pos pos = new Pos();
-            pos.setCodigo(rs.getInt(1));
-            pos.setCodigoDispositivo(rs.getString(2));
-            pos.setPin(rs.getString(3));
-            pos.setEstado(rs.getString(4));
-            return pos;
+            return super.findByParameter(this.FIND_BY_ESTADO,new Object[]{estado});
         } catch (SQLException sqlEx) {
-            LOG.log(Level.SEVERE, "Error al ejecutar el método buscarDispositivo", sqlEx);
+            LOG.log(Level.SEVERE,"ERROR AL EJECUTAR EL METODO FINDBYESTADO",sqlEx);
             return null;
-        } finally {
-            this.connectionManager.releaseConnection(this.conn);
+        }finally{
+            super.closeConnection();
         }
     }
-    
-    public List<Pos> findByEstado(String estado) {
-        List<Pos> listaPos=new ArrayList<>();
-        try {
-            PreparedStatement pstm = conn.prepareStatement(FIND_BY_ESTADO);
-            pstm.setString(0, estado);
-            ResultSet rs = pstm.executeQuery();
-            while (rs.next()) {
-                Pos pos = new Pos();
-                pos.setCodigo(rs.getInt(1));
-                pos.setCodigoDispositivo(rs.getString(2));
-                pos.setPin(rs.getString(3));
-                pos.setEstado(rs.getString(4));
-                listaPos.add(pos);
-            }
+    @Override
+    public String getPK() {
+        return FIND_PK;
+    }
 
-            return listaPos;
-        } catch (SQLException sqlEx) {
-            LOG.log(Level.SEVERE, "Error al ejecutar el método findByEstado", sqlEx);
-            return null;
-        } finally {
-            this.connectionManager.releaseConnection(this.conn);
-        }
+    @Override
+    public String getInsert() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public String getUpdate() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public Pos createObject(ResultSet rs) throws SQLException {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 }

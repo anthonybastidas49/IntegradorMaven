@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package ec.edu.espe.integrador.hilos;
+package ec.edu.espe.integrador.started;
 
 import java.io.IOException;
 import java.net.ServerSocket;

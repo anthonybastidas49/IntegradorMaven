@@ -17,7 +17,7 @@ package ec.edu.espe.distribuidas.protocolpi.pos;
  */
 public class Ejemplo {
     public static void main(String[] args) throws ProtocolParserException {
-        MensajeProtocolo men=MessageParser.parse("RQ|POSA00000000001|4000|20191109111925|43|1547|003|EST001|1234|6547123685214563|00001");
+        MensajeProtocolo men=MessageParser.parse("RQ|POSA00000000001|2000|20191109111925|04|1234");
         if(men instanceof RegistroPosIntegradorReq){
             RegistroPosIntegradorReq m=(RegistroPosIntegradorReq) men;
             System.out.println(m.getCabecera().getCodigoMensaje());

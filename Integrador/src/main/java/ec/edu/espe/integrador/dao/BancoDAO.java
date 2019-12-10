@@ -10,10 +10,8 @@
  */
 package ec.edu.espe.integrador.dao;
 
-import ec.edu.espe.distribuidas.dbutils.bdd.ConnectionManager;
+import ec.edu.espe.distribuidas.dbutils.bdd.AbstractDAO;
 import ec.edu.espe.integrador.modelo.Banco;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.logging.Level;
@@ -24,35 +22,43 @@ import java.util.logging.Logger;
  *
  * @author Paspuel-Torres
  */
-public class BancoDAO {
+public class BancoDAO extends AbstractDAO<Banco>{
     private static final String BUSCAR_PK="SELECT * FROM BANCO WHERE COD_BANCO=?";   
     private static final Logger LOG = Logger.getLogger(BancoDAO.class.getName());
         
-    private final ConnectionManager connectionManager;
-    private final Connection conn;
 
     public BancoDAO() {
-        this.connectionManager = ConnectionManager.getInstance();
-        this.conn = this.connectionManager.getConnection();
+        super();
     }
-    public Banco buscarPorPK(String codigo){
+
+    @Override
+    public String getPK() {
+        return this.BUSCAR_PK;
+    }
+    public Banco findByPk(String codigo){
         try {
-            PreparedStatement pstm = conn.prepareStatement(BUSCAR_PK);
-            pstm.setString(1, codigo);
-            ResultSet rs = pstm.executeQuery();
-            rs.next();
-            Banco banco=new Banco();
-            banco.setCodigo(rs.getString(1));
-            banco.setNombre(rs.getString(2));
-            banco.setIp(rs.getString(3));
-            banco.setPuerto(rs.getInt(4));
-            return banco;
+            return super.findByPK(new Object[]{codigo});
         } catch (SQLException sqlEx) {
-            LOG.log(Level.SEVERE, "Error al ejecutar el método bucarPorPK", sqlEx);
+            LOG.log(Level.SEVERE,"ERROR AL EJECUTAR EL METODO FINDBYPK",sqlEx);
             return null;
-        } finally {
-            this.connectionManager.releaseConnection(this.conn);
+        } finally{
+            super.closeConnection();
         }
     }
+    @Override
+    public String getInsert() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public String getUpdate() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public Banco createObject(ResultSet rs) throws SQLException {
+        return null;
+    }
+
     
 }

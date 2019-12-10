@@ -10,15 +10,11 @@
  */
 package ec.edu.espe.integrador.dao;
 
-import ec.edu.espe.distribuidas.dbutils.bdd.ConnectionManager;
+import ec.edu.espe.distribuidas.dbutils.bdd.AbstractDAO;
+import ec.edu.espe.integrador.modelo.Pos;
 import ec.edu.espe.integrador.modelo.SesionPos;
-import java.sql.Connection;
-import java.sql.Date;
-import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -27,7 +23,7 @@ import java.util.logging.Logger;
  *
  * @author Paspuel-Torres
  */
-public class SesionPosDAO {
+public class SesionPosDAO extends AbstractDAO<SesionPos>{
 
     private final String INSERT = "INSERT INTO SESION_POS(COD_SESION,FECHA_CREACION,FECHA_ULTIMO_ACCESO) VALUES (NULL,?,?)";
     private final String FIND_PK = "SELECT * FROM SESION_POS WHERE COD_SESION=?";
@@ -36,79 +32,65 @@ public class SesionPosDAO {
     
     private static final Logger LOG = Logger.getLogger(SesionPosDAO.class.getName());
 
-    private final ConnectionManager connectionManager;
-    private final Connection conn;
-
     public SesionPosDAO() {
-        this.connectionManager = ConnectionManager.getInstance();
-        this.conn = this.connectionManager.getConnection();
+        super();
     }
 
-    public void insert(SesionPos sesion) {
-        try {
-            PreparedStatement pstm = conn.prepareStatement(INSERT);
-            pstm.setDate(1, sesion.getFechaCreacion());
-            pstm.setDate(2, sesion.getFechaUltimoAcceso());
-            pstm.executeUpdate();
-        } catch (SQLException sqlEx) {
-            LOG.log(Level.SEVERE, "Error al ejecutar el método insert", sqlEx);
-        } finally {
-            this.connectionManager.releaseConnection(this.conn);
-        }
-    }
-    
     public SesionPos findByPk(Integer codigo) {
         try {
-            PreparedStatement pstm = conn.prepareStatement(FIND_PK);
-            pstm.setInt(1, codigo);
-            ResultSet rs = pstm.executeQuery();
-            rs.next();
-            SesionPos sesion = new SesionPos();
-            sesion.setCodigo(rs.getInt(1));
-            sesion.setFechaCreacion(rs.getDate(2));
-            sesion.setFechaUltimoAcceso(rs.getDate(3));
-            return sesion;
+            return super.findByPK(new Object[]{codigo});
         } catch (SQLException sqlEx) {
-            LOG.log(Level.SEVERE, "Error al ejecutar el método buscarSesión", sqlEx);
+            LOG.log(Level.SEVERE, "ERROR AL EJECUTAR EL METODO FINDBYPK", sqlEx);
             return null;
         } finally {
-            this.connectionManager.releaseConnection(this.conn);
+            super.closeConnection();
         }
+    }
+    public void insert(SesionPos sesionPos){
+        try {
+            Object parametros[] = new Object[]{
+                sesionPos.getCodigo(),
+                sesionPos.getFechaCreacion(),
+                sesionPos.getFechaUltimoAcceso()
+            };
+            super.insert(parametros);
+        } catch (SQLException sqlEx) {
+            LOG.log(Level.SEVERE, "Error al ejecutar el metodo insert ", sqlEx);
+        } finally{
+            super.closeConnection();
+        }
+    }
+    public void update(SesionPos sesionPos){
+        try {
+            Object parametros[] = new Object[]{
+                sesionPos.getCodigo(),
+                sesionPos.getFechaCreacion(),
+                sesionPos.getFechaUltimoAcceso()
+            };
+            super.update(parametros);
+        } catch (SQLException sqlEx) {
+            LOG.log(Level.SEVERE, "Error al ejecutar el metodo insert ", sqlEx);
+        } finally{
+            super.closeConnection();
+        }
+    }
+    @Override
+    public String getPK() {
+        return this.FIND_PK;
+    }
+    @Override
+    public String getInsert() {
+        return this.INSERT;
     }
 
-    public List<SesionPos> findByFechaUltimoAcceso(Date fecha) {
-        List<SesionPos> sesiones = new ArrayList<>();
-        try {
-            PreparedStatement pstm = conn.prepareStatement(FIND_LAST_ACCESS);
-            pstm.setDate(1, fecha);
-            ResultSet rs = pstm.executeQuery();
-            while (rs.next()) {
-                SesionPos sesion = new SesionPos();
-                sesion.setCodigo(rs.getInt(1));
-                sesion.setFechaCreacion(rs.getDate(2));
-                sesion.setFechaUltimoAcceso(rs.getDate(3));
-                sesiones.add(sesion);
-            }
-            return sesiones;
-        } catch (SQLException sqlEx) {
-            LOG.log(Level.SEVERE, "Error al ejecutar el método dinfByFechaUltimoAcceso", sqlEx);
-            return null;
-        } finally {
-            this.connectionManager.releaseConnection(this.conn);
-        }
+    @Override
+    public String getUpdate() {
+        return this.UPDATE;
     }
 
-    public void update(Integer codigo, Date fechaUltimoAcceso) {
-        try {
-            PreparedStatement pstm = conn.prepareStatement(UPDATE);
-            pstm.setDate(1, fechaUltimoAcceso);
-            pstm.setInt(2, codigo);
-            ResultSet rs = pstm.executeQuery();
-            rs.next();
-        } catch (SQLException sqlEx) {
-            LOG.log(Level.SEVERE, "Error al ejecutar el método update", sqlEx);
-        } finally {
-            this.connectionManager.releaseConnection(this.conn);
-        }
+    @Override
+    public SesionPos createObject(ResultSet rs) throws SQLException {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
+    
 }
