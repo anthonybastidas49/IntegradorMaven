@@ -55,6 +55,7 @@ public class Worker extends Thread {
             brinp = new BufferedReader(new InputStreamReader(inp));
             out = new PrintWriter(socketClientePos.getOutputStream());
             String line = brinp.readLine();
+            this.instanciaPos(line);
             /*switch (parts[0]) {
                 case "RGP":
                     /*res.marshalRegistroPos();
@@ -125,27 +126,29 @@ public class Worker extends Thread {
     }
     
 
-    private static void instanciaPos(String mensaje) {
+    private static String instanciaPos(String mensaje) {
         try {
-            MensajeProtocolo mensajeProtocolo=MessageParser.parse(mensaje);
-            if(mensajeProtocolo instanceof RegistroPosIntegradorReq){
-                RegistroPosIntegradorReq request=(RegistroPosIntegradorReq)mensajeProtocolo;
-            }else if(mensajeProtocolo instanceof RegistroPosIntegradorRes){
-                RegistroPosIntegradorRes response=(RegistroPosIntegradorRes)mensajeProtocolo;
-            }else if(mensajeProtocolo instanceof CompraPosIntegradorReq){
-                CompraPosIntegradorReq request=(CompraPosIntegradorReq)mensajeProtocolo;
-            }else if(mensajeProtocolo instanceof CompraPosIntegradorRes){
-                CompraPosIntegradorRes response=(CompraPosIntegradorRes)mensajeProtocolo;
-            }else if(mensajeProtocolo instanceof CancelacionPosIntegradorReq){
-                CancelacionPosIntegradorReq request=(CancelacionPosIntegradorReq)mensajeProtocolo;
-            }else if(mensajeProtocolo instanceof CancelacionPosIntegradorRes){
-                CancelacionPosIntegradorRes request=(CancelacionPosIntegradorRes)mensajeProtocolo;
+            MensajeProtocolo mensajeProtocolo = MessageParser.parse(mensaje);
+            if (mensajeProtocolo instanceof RegistroPosIntegradorReq) {
+                RegistroPosIntegradorReq request = (RegistroPosIntegradorReq) mensajeProtocolo;
+            } else if (mensajeProtocolo instanceof RegistroPosIntegradorRes) {
+                RegistroPosIntegradorRes response = (RegistroPosIntegradorRes) mensajeProtocolo;
+            } else if (mensajeProtocolo instanceof CompraPosIntegradorReq) {
+                CompraPosIntegradorReq request = (CompraPosIntegradorReq) mensajeProtocolo;
+            } else if (mensajeProtocolo instanceof CompraPosIntegradorRes) {
+                CompraPosIntegradorRes response = (CompraPosIntegradorRes) mensajeProtocolo;
+            } else if (mensajeProtocolo instanceof CancelacionPosIntegradorReq) {
+                CancelacionPosIntegradorReq request = (CancelacionPosIntegradorReq) mensajeProtocolo;
+            } else if (mensajeProtocolo instanceof CancelacionPosIntegradorRes) {
+                CancelacionPosIntegradorRes request = (CancelacionPosIntegradorRes) mensajeProtocolo;
             }
         } catch (ProtocolParserException sqlEx) {
-            LOG.log(Level.SEVERE,"ERROR AL EJECUTAR EL METODO instancePos",sqlEx);
+            LOG.log(Level.SEVERE, "ERROR AL EJECUTAR EL METODO instancePos", sqlEx);
         }
+            return "";
     }
-    private static void instanciaBanco(String mensaje) {
+
+    private static String instanciaBanco(String mensaje) {
         try {
             ec.edu.espe.distribuidas.protocolpi.banco.MensajeProtocolo mensajeProtocolo = ec.edu.espe.distribuidas.protocolpi.banco.MessageParser.parse(mensaje);
             if (mensajeProtocolo instanceof CompraIntegradorBancoReq) {
@@ -157,8 +160,9 @@ public class Worker extends Thread {
             } else if (mensajeProtocolo instanceof CancelacionIntegradorBancoRes) {
                 CancelacionIntegradorBancoRes request = (CancelacionIntegradorBancoRes) mensajeProtocolo;
             }
-        }catch (ec.edu.espe.distribuidas.protocolpi.banco.ProtocolParserException sqlEx) {
-            LOG.log(Level.SEVERE,"ERROR AL EJECUTAR EL METODO instancePos",sqlEx);
+        } catch (ec.edu.espe.distribuidas.protocolpi.banco.ProtocolParserException sqlEx) {
+            LOG.log(Level.SEVERE, "ERROR AL EJECUTAR EL METODO instanceBancos", sqlEx);
         }
+        return "";
     }
 }

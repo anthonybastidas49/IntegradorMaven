@@ -11,7 +11,6 @@
 package ec.edu.espe.integrador.dao;
 
 import ec.edu.espe.distribuidas.dbutils.bdd.AbstractDAO;
-import ec.edu.espe.integrador.modelo.Pos;
 import ec.edu.espe.integrador.modelo.SesionPos;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -28,6 +27,7 @@ public class SesionPosDAO extends AbstractDAO<SesionPos>{
     private final String INSERT = "INSERT INTO SESION_POS(COD_SESION,FECHA_CREACION,FECHA_ULTIMO_ACCESO) VALUES (NULL,?,?)";
     private final String FIND_PK = "SELECT * FROM SESION_POS WHERE COD_SESION=?";
     private final String FIND_LAST_ACCESS = "SELECT * FROM SESION_POS WHERE FECHA_ULTIMO_ACCESO<?";
+    private final String FIND_LAST_INSERT="SELECT * FROM SESION_POS ORDER BY COD_SESION DESC LIMIT 1";
     private final String UPDATE = "UPDATE SESION_POS SET FECHA_ULTIMO_ACCESO=? WHERE COD_SESION=?";
     
     private static final Logger LOG = Logger.getLogger(SesionPosDAO.class.getName());
@@ -46,7 +46,18 @@ public class SesionPosDAO extends AbstractDAO<SesionPos>{
             super.closeConnection();
         }
     }
+    public SesionPos findByLastInsert(){
+        try {
+            return super.findByParameter(this.FIND_LAST_INSERT,new Object[]{}).get(0);
+        } catch (SQLException sqlEx) {
+            LOG.log(Level.SEVERE,"ERROR AL EJECUTAR EL METODO FindByLastInsert",sqlEx);
+            return null;
+        }finally{
+            super.closeConnection();
+        }
+    }
     public void insert(SesionPos sesionPos){
+        sesionPos.setCodigo(null);
         try {
             Object parametros[] = new Object[]{
                 sesionPos.getCodigo(),

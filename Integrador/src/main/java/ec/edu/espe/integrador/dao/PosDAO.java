@@ -54,6 +54,16 @@ public class PosDAO extends AbstractDAO<Pos>{
             super.closeConnection();
         }
     }
+    public Pos findByCodigoDispositivos(String codigoDispositivo){
+        try {
+            return super.findByParameter(this.FIND_BY_CODIGO_DISPOSITIVO,new Object[]{codigoDispositivo}).get(0);
+        } catch (SQLException sqlEx) {
+            LOG.log(Level.SEVERE,"ERROR AL EJECUTAR EL METODO FINDBYESTADO",sqlEx);
+            return null;
+        }finally{
+            super.closeConnection();
+        }
+    }
     @Override
     public String getPK() {
         return FIND_PK;
