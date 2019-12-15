@@ -1,7 +1,10 @@
 
-import ec.edu.espe.integrador.dao.BancoDAO;
-import ec.edu.espe.integrador.modelo.Banco;
-import java.sql.SQLException;
+import ec.edu.espe.integrador.dao.SesionPosDAO;
+import ec.edu.espe.integrador.modelo.SesionPos;
+import java.sql.Date;
+
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 
 /*
  * ESPE - DCC - APLICACIONES DISTRIBUIDAS
@@ -19,9 +22,24 @@ import java.sql.SQLException;
  * @author Anthony
  */
 public class NewClass {
-    public static void main(String[] args) throws SQLException {
-        BancoDAO dao=new BancoDAO();
-        Banco b=dao.findByPk("001");
-        System.out.println(b.getNombre());
-    }
-}
+    public static void main(String[] args){
+
+        //SesionPos sesion=new SesionPos();
+        //sesion.setCodigo(2);
+        Calendar calendar = Calendar.getInstance();
+        SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
+        /*sesion.setFechaUltimoAcceso(calendar.getTime());
+        SesiCalendar calendar = Calendar.getInstance();
+        SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
+        calendar.add(Calendar.MINUTE,5);
+        System.out.println(calendar.toString());*/
+        
+        SesionPosDAO s=new SesionPosDAO();
+        SesionPos sesion=new SesionPos();
+        sesion.setFechaUltimoAcceso(calendar.getTime());
+        sesion.setFechaCreacion(calendar.getTime());
+        s.insert(sesion);
+                SesionPos ss=s.findByLastInsert();
+        System.out.println(ss.getCodigo());
+        
+    }}

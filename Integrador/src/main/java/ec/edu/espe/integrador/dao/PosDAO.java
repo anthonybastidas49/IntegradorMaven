@@ -26,7 +26,7 @@ import java.util.logging.Logger;
 public class PosDAO extends AbstractDAO<Pos>{
 
     private static final String FIND_PK = "SELECT * FROM POS WHERE COD_POS=?";
-    private static final String FIND_BY_CODIGO_DISPOSITIVO = "SELECT * FROM POS WHERE COD_DISPOSITIVO=?";
+    private static final String FIND_BY_CODIGO_DISPOSITIVO = "SELECT * FROM POS WHERE COD_DISPOSITIVO=? AND ESTADO='ACT'";
     private static final String FIND_BY_ESTADO = "SELECT * FROM POS WHERE ESTADO=?";
     private static final Logger LOG = Logger.getLogger(PosDAO.class.getName());
 
@@ -81,6 +81,11 @@ public class PosDAO extends AbstractDAO<Pos>{
 
     @Override
     public Pos createObject(ResultSet rs) throws SQLException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        Pos retorno=new Pos();
+        retorno.setCodigo(rs.getInt(1));
+        retorno.setCodigoDispositivo(rs.getString(2));
+        retorno.setPin(rs.getString(3));
+        retorno.setEstado(rs.getString(4));
+        return retorno;
     }
 }

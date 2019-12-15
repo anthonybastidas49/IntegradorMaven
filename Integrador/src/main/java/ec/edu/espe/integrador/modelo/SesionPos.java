@@ -10,8 +10,9 @@
  */
 package ec.edu.espe.integrador.modelo;
 
+import java.util.Date;
 import java.util.Objects;
-import java.sql.Date;
+
 /**
  * Clase modelo de SesionPos. Relacionada con la Tabla SESION_POS
  *
@@ -33,11 +34,10 @@ public class SesionPos {
         return codigo;
     }
 
-    public void setCodigo(Integer codigo) {
+   public void setCodigo(Integer codigo) {
         this.codigo = codigo;
     }
 
-    
     public Date getFechaCreacion() {
         return fechaCreacion;
     }
@@ -53,6 +53,7 @@ public class SesionPos {
     public void setFechaUltimoAcceso(Date fechaUltimoAcceso) {
         this.fechaUltimoAcceso = fechaUltimoAcceso;
     }
+
 
     @Override
     public int hashCode() {

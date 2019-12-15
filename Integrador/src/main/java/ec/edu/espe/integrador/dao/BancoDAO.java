@@ -58,7 +58,12 @@ public class BancoDAO extends AbstractDAO<Banco>{
 
     @Override
     public Banco createObject(ResultSet rs) throws SQLException {
-        return null;
+        Banco retorno=new Banco();
+        retorno.setCodigo(rs.getString(1));
+        retorno.setNombre(rs.getString(2));
+        retorno.setIp(rs.getString(3));
+        retorno.setPuerto(rs.getInt(4));
+        return retorno;
     }
 
     

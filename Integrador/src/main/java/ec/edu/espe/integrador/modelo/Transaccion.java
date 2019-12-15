@@ -10,7 +10,8 @@
  */
 package ec.edu.espe.integrador.modelo;
 
-import java.sql.Date;
+
+import java.util.Date;
 import java.util.Objects;
 
 /**

@@ -48,6 +48,7 @@ public class TransaccionDAO extends AbstractDAO<Transaccion> {
     }
 
     public void insert(Transaccion transaccion) {
+        transaccion.setCodigo(null);
         try {
             Object parametros[] = new Object[]{
                 transaccion.getCodigo(),
@@ -83,7 +84,16 @@ public class TransaccionDAO extends AbstractDAO<Transaccion> {
 
     @Override
     public Transaccion createObject(ResultSet rs) throws SQLException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        Transaccion retorno = new Transaccion();
+        retorno.setCodigo(rs.getInt(1));
+        retorno.setCodigoBanco(rs.getString(2));
+        retorno.setCodigoDispositivo(rs.getString(3));
+        retorno.setRequest(rs.getString(4));
+        retorno.setResponse(rs.getString(5));
+        retorno.setEstado(rs.getString(6));
+        retorno.setFecha(rs.getDate(7));
+        retorno.setIsoPais(rs.getString(8));
+        return retorno;
     }
 
 }
