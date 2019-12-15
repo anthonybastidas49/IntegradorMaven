@@ -39,7 +39,9 @@ public class NewClass {
         sesion.setFechaUltimoAcceso(calendar.getTime());
         sesion.setFechaCreacion(calendar.getTime());
         s.insert(sesion);
-                SesionPos ss=s.findByLastInsert();
+        SesionPos ss=s.findByLastInsert();
         System.out.println(ss.getCodigo());
         
-    }}
+        
+    }
+}

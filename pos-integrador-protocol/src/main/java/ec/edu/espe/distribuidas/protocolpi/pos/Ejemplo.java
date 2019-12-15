@@ -22,7 +22,8 @@ public class Ejemplo {
             RegistroPosIntegradorReq m=(RegistroPosIntegradorReq) men;
             System.out.println(m.getCabecera().getCodigoMensaje());
             System.out.println(m.getPin());
-            String ma=MessageFormat.format(m);
+            ///String ma=MessageFormat.format(m);
+            String ma=m.format();
             System.out.println(ma);
         }else if(men instanceof RegistroPosIntegradorRes){
             RegistroPosIntegradorRes m=(RegistroPosIntegradorRes)men;
