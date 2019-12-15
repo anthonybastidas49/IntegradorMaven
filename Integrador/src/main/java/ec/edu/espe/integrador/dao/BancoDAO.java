@@ -31,10 +31,7 @@ public class BancoDAO extends AbstractDAO<Banco>{
         super();
     }
 
-    @Override
-    public String getPK() {
-        return this.BUSCAR_PK;
-    }
+
     public Banco findByPk(String codigo){
         try {
             return super.findByPK(new Object[]{codigo});
@@ -44,6 +41,10 @@ public class BancoDAO extends AbstractDAO<Banco>{
         } finally{
             super.closeConnection();
         }
+    }
+        @Override
+    public String getPK() {
+        return  BancoDAO.BUSCAR_PK;
     }
     @Override
     public String getInsert() {

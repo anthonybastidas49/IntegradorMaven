@@ -1,6 +1,7 @@
 
 import ec.edu.espe.integrador.dao.BancoDAO;
 import ec.edu.espe.integrador.modelo.Banco;
+import java.sql.SQLException;
 
 /*
  * ESPE - DCC - APLICACIONES DISTRIBUIDAS
@@ -18,7 +19,7 @@ import ec.edu.espe.integrador.modelo.Banco;
  * @author Anthony
  */
 public class NewClass {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws SQLException {
         BancoDAO dao=new BancoDAO();
         Banco b=dao.findByPk("001");
         System.out.println(b.getNombre());
