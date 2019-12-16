@@ -14,7 +14,6 @@ import ec.edu.espe.distribuidas.dbutils.bdd.AbstractDAO;
 import ec.edu.espe.integrador.modelo.SesionPos;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -73,12 +72,17 @@ public class SesionPosDAO extends AbstractDAO<SesionPos>{
         }
     }
     public SesionPos findBySesion(SesionPos sesion){
+        System.out.println(sesion.getCodigo());
         try {
             return super.findByParameter(this.FIND_LAST_ACCESS,new Object[]{sesion.getCodigo(),sesion.getFechaUltimoAcceso()}).get(0);
         } catch (SQLException sqlEx) {
             LOG.log(Level.SEVERE,"ERROR AL EJECUTAR EL METODO FINDBYESTADO",sqlEx);
             return null;
-        }finally{
+        }catch(IndexOutOfBoundsException sqlEx){
+           LOG.log(Level.SEVERE,"ERROR AL EJECUTAR EL METODO FINDBYESTADO",sqlEx);
+            return null; 
+        }
+        finally{
             super.closeConnection();
         }
     }

@@ -52,15 +52,15 @@ public class RegistroPosIntegradorService {
     private static Integer RESPONSE_CANCELACION = 4010;
     private static Integer REQUEST_COMPRA = 3000;
     private static Integer REQUEST_CANCELACION = 4000;
-    private static Calendar calendar = Calendar.getInstance();
-    private static SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
 
     public String responseRegistro(RegistroPosIntegradorReq request) throws ProtocolParserException {
+        Calendar calendar = Calendar.getInstance();
+        SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
         PosDAO posDAO = new PosDAO();
         SesionPosDAO sesionPosDAO = new SesionPosDAO();
         Pos pos = posDAO.findByCodigoDispositivos(request.getCabecera().getDispositivo());
         RegistroPosIntegradorRes response = new RegistroPosIntegradorRes();
-        CabeceraPosIntegrador cabecera=new CabeceraPosIntegrador(this.RESPONSE_I, request.getCabecera().getDispositivo(), this.RESPONSE_RESGISTRO, request.getCabecera().getFecha(), 0);
+        CabeceraPosIntegrador cabecera = new CabeceraPosIntegrador(this.RESPONSE_I, request.getCabecera().getDispositivo(), this.RESPONSE_RESGISTRO, request.getCabecera().getFecha(), 0);
         response.setCabecera(cabecera);
         if (pos != null) {
             SesionPos insertSesion = new SesionPos();
@@ -82,6 +82,8 @@ public class RegistroPosIntegradorService {
     }
 
     public String responseCompra(CompraPosIntegradorReq request) throws ec.edu.espe.distribuidas.protocolpi.banco.ProtocolParserException, ProtocolParserException {
+        Calendar calendar = Calendar.getInstance();
+        SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
         BancoDAO bancoDAO = new BancoDAO();
         Banco banco = new Banco();
         TransaccionDAO transaccionDAO = new TransaccionDAO();
@@ -111,16 +113,15 @@ public class RegistroPosIntegradorService {
                 compraInBanReq.setMeses(request.getMeses());
                 RedBancoService red = new RedBancoService();
                 //String response = red.redireccionamiento(compraInBanReq.format().concat("\n"), banco);
-                String response="RS|3010|20191109113825|16|115.14|TOK|00005";
+                String response = "RS|3010|20191109113825|16|115.14|TOK|00005";
                 ec.edu.espe.distribuidas.protocolpi.banco.MensajeProtocolo mensajeProtocolo = ec.edu.espe.distribuidas.protocolpi.banco.MessageParser.parse(response);
-                if(mensajeProtocolo instanceof CompraIntegradorBancoRes){
+                if (mensajeProtocolo instanceof CompraIntegradorBancoRes) {
                     CompraIntegradorBancoRes responseBanco = (CompraIntegradorBancoRes) mensajeProtocolo;
-                    CompraPosIntegradorRes nuevoResponse=new CompraPosIntegradorRes();
-                    nuevoResponse.setCabecera(new CabeceraPosIntegrador(RESPONSE_I,request.getCabecera().getDispositivo(),RESPONSE_COMPRA,request.getCabecera().getFecha(),0));
+                    CompraPosIntegradorRes nuevoResponse = new CompraPosIntegradorRes();
+                    nuevoResponse.setCabecera(new CabeceraPosIntegrador(RESPONSE_I, request.getCabecera().getDispositivo(), RESPONSE_COMPRA, request.getCabecera().getFecha(), 0));
                     nuevoResponse.setValorCuota(responseBanco.getValorCuota());
                     nuevoResponse.setEstado(responseBanco.getEstado());
                     nuevoResponse.setReferenciaVoucher(responseBanco.getReferenciaVoucher());
-                    
                     transaccion.setCodigo(null);
                     transaccion.setCodigoBanco(banco.getCodigo());
                     transaccion.setCodigoDispositivo(request.getCabecera().getDispositivo());
@@ -139,7 +140,7 @@ public class RegistroPosIntegradorService {
         compraResponse.setValorCuota(new BigDecimal(-1));
         compraResponse.setEstado("SNP");
         compraResponse.setReferenciaVoucher("00000");
-        
+
         transaccion.setCodigo(null);
         transaccion.setCodigoBanco(banco.getCodigo());
         transaccion.setCodigoDispositivo(request.getCabecera().getDispositivo());
@@ -149,19 +150,19 @@ public class RegistroPosIntegradorService {
         transaccion.setIsoPais("ECU");
         transaccion.setEstado(null);
         transaccionDAO.insert(transaccion);
-        
+
         return MessageFormat.format(compraResponse);
     }
-    
-    
+
     public String responseCancelacion(CancelacionPosIntegradorReq request) throws ProtocolParserException, ec.edu.espe.distribuidas.protocolpi.banco.ProtocolParserException {
-        
+        Calendar calendar = Calendar.getInstance();
+        SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
         BancoDAO bancoDAO = new BancoDAO();
         Banco banco = new Banco();
         TransaccionDAO transaccionDAO = new TransaccionDAO();
         Transaccion transaccion = new Transaccion();
-        PosDAO posDAO=new PosDAO();
-        Pos pos=new Pos();
+        PosDAO posDAO = new PosDAO();
+        Pos pos = new Pos();
         SesionPosDAO sesionDAO = new SesionPosDAO();
         SesionPos sesionPos = new SesionPos();
         sesionPos.setCodigo(request.getCodigoSesion());
@@ -172,8 +173,8 @@ public class RegistroPosIntegradorService {
             calendar.add(Calendar.MINUTE, 5);
             sesionNueva.setFechaUltimoAcceso(calendar.getTime());
             sesionDAO.update(sesionNueva);
-            pos=posDAO.findByCodigoDispositivos(request.getCabecera().getDispositivo());
-            if(request.getPin().equals(pos.getPin())){
+            pos = posDAO.findByCodigoDispositivos(request.getCabecera().getDispositivo());
+            if (request.getPin().equals(pos.getPin())) {
                 banco = bancoDAO.findByPk(request.getCodigoBanco().toString());
                 if (banco != null) {
                     CancelacionIntegradorBancoReq cancelacionInBan = new CancelacionIntegradorBancoReq();
@@ -183,12 +184,12 @@ public class RegistroPosIntegradorService {
                     cancelacionInBan.setReferenciaVoucher(request.getReferenciaVoucher());
                     RedBancoService red = new RedBancoService();
                     //String response = red.redireccionamiento(cancelacionInBan.format().concat("\n"), banco);
-                    String response="RS|4010|20191109113825|10|575.82|TOK";
+                    String response = "RS|4010|20191109113825|10|575.82|TOK";
                     ec.edu.espe.distribuidas.protocolpi.banco.MensajeProtocolo mensajeProtocolo = ec.edu.espe.distribuidas.protocolpi.banco.MessageParser.parse(response);
-                    if(mensajeProtocolo instanceof CancelacionIntegradorBancoRes){
+                    if (mensajeProtocolo instanceof CancelacionIntegradorBancoRes) {
                         CancelacionIntegradorBancoRes responseBanco = (CancelacionIntegradorBancoRes) mensajeProtocolo;
-                        CancelacionPosIntegradorRes nuevoResponse= new CancelacionPosIntegradorRes();
-                        nuevoResponse.setCabecera(new CabeceraPosIntegrador(RESPONSE_I, request.getCabecera().getDispositivo(), RESPONSE_COMPRA, request.getCabecera().getFecha(),0));
+                        CancelacionPosIntegradorRes nuevoResponse = new CancelacionPosIntegradorRes();
+                        nuevoResponse.setCabecera(new CabeceraPosIntegrador(RESPONSE_I, request.getCabecera().getDispositivo(), RESPONSE_COMPRA, request.getCabecera().getFecha(), 0));
                         nuevoResponse.setMontoCancelado(responseBanco.getMontoCancelado());
                         nuevoResponse.setEstado(responseBanco.getEstado());
                         transaccion.setCodigo(null);
@@ -203,13 +204,13 @@ public class RegistroPosIntegradorService {
                         return MessageFormat.format(nuevoResponse);
                     }
                 }
-            }          
+            }
         }
         CancelacionPosIntegradorRes cancelacionResponse = new CancelacionPosIntegradorRes();
         cancelacionResponse.setCabecera(new CabeceraPosIntegrador(RESPONSE_I, request.getCabecera().getDispositivo(), RESPONSE_COMPRA, request.getCabecera().getFecha(), 0));
         cancelacionResponse.setMontoCancelado(new BigDecimal(-1));
         cancelacionResponse.setEstado(REQUEST_I);
-        
+
         transaccion.setCodigo(null);
         transaccion.setCodigoBanco(banco.getCodigo());
         transaccion.setCodigoDispositivo(request.getCabecera().getDispositivo());
@@ -219,10 +220,8 @@ public class RegistroPosIntegradorService {
         transaccion.setIsoPais("ECU");
         transaccion.setEstado(null);
         transaccionDAO.insert(transaccion);
-        
+
         return MessageFormat.format(cancelacionResponse);
     }
-    
-    
 
 }
