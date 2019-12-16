@@ -11,7 +11,6 @@
 package ec.edu.espe.integrador.dao;
 
 import ec.edu.espe.distribuidas.dbutils.bdd.AbstractDAO;
-import ec.edu.espe.integrador.modelo.SesionPos;
 import ec.edu.espe.integrador.modelo.Transaccion;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -26,7 +25,7 @@ import java.util.logging.Logger;
 public class TransaccionDAO extends AbstractDAO<Transaccion> {
 
     private static final String INSERT = "INSERT INTO TRANSACCION(COD_TRANSACCION,COD_BANCO,COD_DISPOSITIVO,"
-            + "REQUEST,RESPONSE,ESTADO,FECHA) VALUES (NULL,?,?,?,?,?,?)";
+            + "REQUEST,RESPONSE,ESTADO,FECHA,ISO_PAIS) VALUES (?,?,?,?,?,?,?,?)";
     private static final String FIND_PK = "SELECT * FROM TRANSACCION WHERE COD_TRANSACCION=?";
     private static final String FIND_BY_BANCO = "SELECT * FROM TRANSACCION WHERE COD_BANCO=?";
     private static final String FIND_BY_DATE = "SELECT * FROM TRANSACCION WHERE FECHA BETWEEN ? AND ?";
@@ -57,13 +56,14 @@ public class TransaccionDAO extends AbstractDAO<Transaccion> {
                 transaccion.getRequest(),
                 transaccion.getResponse(),
                 transaccion.getEstado(),
-                transaccion.getFecha()
+                transaccion.getFecha(),
+                transaccion.getIsoPais()
             };
             super.insert(parametros);
         } catch (SQLException sqlEx) {
             LOG.log(Level.SEVERE, "Error al ejecutar el metodo insert ", sqlEx);
         } finally {
-            super.closeConnection();
+            //super.closeConnection();
         }
     }
 

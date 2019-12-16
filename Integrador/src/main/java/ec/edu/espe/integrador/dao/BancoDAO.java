@@ -39,7 +39,7 @@ public class BancoDAO extends AbstractDAO<Banco>{
             LOG.log(Level.SEVERE,"ERROR AL EJECUTAR EL METODO FINDBYPK",sqlEx);
             return null;
         } finally{
-            super.closeConnection();
+            //super.closeConnection();
         }
     }
         @Override

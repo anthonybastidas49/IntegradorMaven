@@ -43,7 +43,7 @@ public class SesionPosDAO extends AbstractDAO<SesionPos>{
             LOG.log(Level.SEVERE, "ERROR AL EJECUTAR EL METODO FINDBYPK", sqlEx);
             return null;
         } finally {
-            super.closeConnection();
+            //super.closeConnection();
         }
     }
     public SesionPos findByLastInsert(){
@@ -91,11 +91,10 @@ public class SesionPosDAO extends AbstractDAO<SesionPos>{
             Object parametros[] = new Object[]{
                 sesionPos.getFechaUltimoAcceso(),
                 sesionPos.getCodigo()
-                
             };
             super.update(parametros);
         } catch (SQLException sqlEx) {
-            LOG.log(Level.SEVERE, "Error al ejecutar el metodo insert ", sqlEx);
+            LOG.log(Level.SEVERE, "Error al ejecutar el metodo update SesionPosDAO ", sqlEx);
         } finally{
             super.closeConnection();
         }

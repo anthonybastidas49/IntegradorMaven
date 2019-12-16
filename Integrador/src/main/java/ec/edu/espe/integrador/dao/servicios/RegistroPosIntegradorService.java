@@ -141,16 +141,6 @@ public class RegistroPosIntegradorService {
         compraResponse.setEstado("SNP");
         compraResponse.setReferenciaVoucher("00000");
 
-        transaccion.setCodigo(null);
-        transaccion.setCodigoBanco(banco.getCodigo());
-        transaccion.setCodigoDispositivo(request.getCabecera().getDispositivo());
-        transaccion.setRequest(request.format());
-        transaccion.setResponse(compraResponse.format());
-        transaccion.setFecha(calendar.getTime());
-        transaccion.setIsoPais("ECU");
-        transaccion.setEstado(null);
-        transaccionDAO.insert(transaccion);
-
         return MessageFormat.format(compraResponse);
     }
 
@@ -174,8 +164,12 @@ public class RegistroPosIntegradorService {
             sesionNueva.setFechaUltimoAcceso(calendar.getTime());
             sesionDAO.update(sesionNueva);
             pos = posDAO.findByCodigoDispositivos(request.getCabecera().getDispositivo());
-            if (request.getPin().equals(pos.getPin())) {
+            System.out.println("sesion n°" + sesionNueva.getCodigo());
+            System.out.println("contrasenia pos: " + pos.getPin());
+            System.out.println("contrania traida: " + request.getPin());
+            if (request.getPin().toString().equals(pos.getPin())) {
                 banco = bancoDAO.findByPk(request.getCodigoBanco().toString());
+                System.out.println("banco" + banco.getCodigo());
                 if (banco != null) {
                     CancelacionIntegradorBancoReq cancelacionInBan = new CancelacionIntegradorBancoReq();
                     cancelacionInBan.setCabecera(new CabeceraIntegradorBanco(REQUEST_I, REQUEST_CANCELACION, request.getCabecera().getFecha(), 0));
@@ -209,17 +203,7 @@ public class RegistroPosIntegradorService {
         CancelacionPosIntegradorRes cancelacionResponse = new CancelacionPosIntegradorRes();
         cancelacionResponse.setCabecera(new CabeceraPosIntegrador(RESPONSE_I, request.getCabecera().getDispositivo(), RESPONSE_COMPRA, request.getCabecera().getFecha(), 0));
         cancelacionResponse.setMontoCancelado(new BigDecimal(-1));
-        cancelacionResponse.setEstado(REQUEST_I);
-
-        transaccion.setCodigo(null);
-        transaccion.setCodigoBanco(banco.getCodigo());
-        transaccion.setCodigoDispositivo(request.getCabecera().getDispositivo());
-        transaccion.setRequest(request.format());
-        transaccion.setResponse(cancelacionResponse.format());
-        transaccion.setFecha(calendar.getTime());
-        transaccion.setIsoPais("ECU");
-        transaccion.setEstado(null);
-        transaccionDAO.insert(transaccion);
+        cancelacionResponse.setEstado("EPN");
 
         return MessageFormat.format(cancelacionResponse);
     }

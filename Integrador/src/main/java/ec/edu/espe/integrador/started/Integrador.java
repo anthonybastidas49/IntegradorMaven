@@ -33,5 +33,4 @@ public class Integrador {
         }
     }
     private static final Logger LOG = Logger.getLogger(Integrador.class.getName());
-    
 }
