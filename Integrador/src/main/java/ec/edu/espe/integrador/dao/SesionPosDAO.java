@@ -53,7 +53,7 @@ public class SesionPosDAO extends AbstractDAO<SesionPos>{
             LOG.log(Level.SEVERE,"ERROR AL EJECUTAR EL METODO FindByLastInsert",sqlEx);
             return null;
         }finally{
-            super.closeConnection();
+            //super.closeConnection();
         }
     }
     public void insert(SesionPos sesionPos){
@@ -83,7 +83,7 @@ public class SesionPosDAO extends AbstractDAO<SesionPos>{
             return null; 
         }
         finally{
-            super.closeConnection();
+            //super.closeConnection();
         }
     }
     public void update(SesionPos sesionPos){
@@ -96,7 +96,7 @@ public class SesionPosDAO extends AbstractDAO<SesionPos>{
         } catch (SQLException sqlEx) {
             LOG.log(Level.SEVERE, "Error al ejecutar el metodo update SesionPosDAO ", sqlEx);
         } finally{
-            super.closeConnection();
+            //super.closeConnection();
         }
     }
     @Override

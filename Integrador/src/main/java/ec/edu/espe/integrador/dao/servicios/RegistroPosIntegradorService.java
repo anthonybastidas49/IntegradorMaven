@@ -70,10 +70,8 @@ public class RegistroPosIntegradorService {
             insertSesion.setFechaUltimoAcceso(calendar.getTime());
             sesionPosDAO.insert(insertSesion);
             SesionPos codigoSesion = sesionPosDAO.findByLastInsert();
-            System.out.println(codigoSesion.getCodigo());
             response.setCodigoSesion(codigoSesion.getCodigo());
             response.setEstado(pos.getEstado());
-            System.out.println(MessageFormat.format(response));
             return MessageFormat.format(response);
         }
         response.setCodigoSesion(-1);
@@ -112,8 +110,8 @@ public class RegistroPosIntegradorService {
                 compraInBanReq.setMonto(request.getMonto());
                 compraInBanReq.setMeses(request.getMeses());
                 RedBancoService red = new RedBancoService();
-                //String response = red.redireccionamiento(compraInBanReq.format().concat("\n"), banco);
-                String response = "RS|3010|20191109113825|16|115.14|TOK|00005";
+                String response = red.redireccionamiento(ec.edu.espe.distribuidas.protocolpi.banco.MessageFormat.format(compraInBanReq).concat("\n"), banco);
+                //String response = "RS|3010|20191109113825|16|115.14|TOK|00005";
                 ec.edu.espe.distribuidas.protocolpi.banco.MensajeProtocolo mensajeProtocolo = ec.edu.espe.distribuidas.protocolpi.banco.MessageParser.parse(response);
                 if (mensajeProtocolo instanceof CompraIntegradorBancoRes) {
                     CompraIntegradorBancoRes responseBanco = (CompraIntegradorBancoRes) mensajeProtocolo;
@@ -129,7 +127,7 @@ public class RegistroPosIntegradorService {
                     transaccion.setResponse(response);
                     transaccion.setFecha(calendar.getTime());
                     transaccion.setIsoPais("ECU");
-                    transaccion.setEstado(null);
+                    transaccion.setEstado(responseBanco.getEstado());
                     transaccionDAO.insert(transaccion);
                     return MessageFormat.format(nuevoResponse);
                 }
@@ -177,8 +175,9 @@ public class RegistroPosIntegradorService {
                     cancelacionInBan.setNumTarjeta(request.getNumTarjeta());
                     cancelacionInBan.setReferenciaVoucher(request.getReferenciaVoucher());
                     RedBancoService red = new RedBancoService();
-                    //String response = red.redireccionamiento(cancelacionInBan.format().concat("\n"), banco);
-                    String response = "RS|4010|20191109113825|10|575.82|TOK";
+                    
+                    String response = red.redireccionamiento(ec.edu.espe.distribuidas.protocolpi.banco.MessageFormat.format(cancelacionInBan).concat("\n"), banco);
+                    //String response = "RS|4010|20191109113825|10|575.82|TOK";
                     ec.edu.espe.distribuidas.protocolpi.banco.MensajeProtocolo mensajeProtocolo = ec.edu.espe.distribuidas.protocolpi.banco.MessageParser.parse(response);
                     if (mensajeProtocolo instanceof CancelacionIntegradorBancoRes) {
                         CancelacionIntegradorBancoRes responseBanco = (CancelacionIntegradorBancoRes) mensajeProtocolo;
@@ -193,7 +192,7 @@ public class RegistroPosIntegradorService {
                         transaccion.setResponse(response);
                         transaccion.setFecha(calendar.getTime());
                         transaccion.setIsoPais("ECU");
-                        transaccion.setEstado(null);
+                        transaccion.setEstado(responseBanco.getEstado());
                         transaccionDAO.insert(transaccion);
                         return MessageFormat.format(nuevoResponse);
                     }

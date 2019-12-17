@@ -20,6 +20,7 @@ public class RedBancoService {
     public String redireccionamiento(String request, Banco banco){
         InputStream inp = null;
         String respuesta="";
+        System.out.println("voy a enviar al banco" + request);
         try (Socket socketBanco = new Socket(banco.getIp(), banco.getPuerto())) {
             PrintWriter printWriter = new PrintWriter(socketBanco.getOutputStream());
             printWriter.write(request);

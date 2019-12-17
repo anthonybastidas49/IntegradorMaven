@@ -41,7 +41,7 @@ public class PosDAO extends AbstractDAO<Pos>{
             LOG.log(Level.SEVERE,"ERROR AL EJECUTAR EL METODO FINDBYPK",sqlEx);
             return null;
         } finally{
-            super.closeConnection();
+            //super.closeConnection();
         }
     }
     public List<Pos> findByEstado(String estado){
@@ -51,7 +51,7 @@ public class PosDAO extends AbstractDAO<Pos>{
             LOG.log(Level.SEVERE,"ERROR AL EJECUTAR EL METODO FINDBYESTADO",sqlEx);
             return null;
         }finally{
-            super.closeConnection();
+            //super.closeConnection();
         }
     }
     public Pos findByCodigoDispositivos(String codigoDispositivo){
@@ -61,7 +61,7 @@ public class PosDAO extends AbstractDAO<Pos>{
             LOG.log(Level.SEVERE,"ERROR AL EJECUTAR EL METODO FINDBYESTADO",sqlEx);
             return null;
         }finally{
-            super.closeConnection();
+            //super.closeConnection();
         }
     }
     @Override

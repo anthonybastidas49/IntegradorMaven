@@ -42,7 +42,7 @@ public class TransaccionDAO extends AbstractDAO<Transaccion> {
             LOG.log(Level.SEVERE, "ERROR AL EJECUTAR EL METODO FINDBYPK", sqlEx);
             return null;
         } finally {
-            super.closeConnection();
+            //super.closeConnection();
         }
     }
 
